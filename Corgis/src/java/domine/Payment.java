@@ -11,12 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author 6197558
  */
 @Entity
+@XmlRootElement
 public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +29,10 @@ public class Payment implements Serializable {
     private float value;
     private Calendar paid_at;
     private boolean status;
-
+    
+    @OneToOne
+    public Parcel parcel;
+    
     public float getValue() {
         return value;
     }

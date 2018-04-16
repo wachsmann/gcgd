@@ -6,17 +6,27 @@
 package domine;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author 6197558
  */
 @Entity
+@XmlRootElement
 public class User implements Serializable {
+
+
+ 
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,9 +36,27 @@ public class User implements Serializable {
     private String name;
     private String password;
     private String email;
-
+    private Integer phone;
+    
     public Long getId() {
         return id;
+    }
+
+    /*@XmlTransient
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }*/
+
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
     }
 
     public void setId(Long id) {

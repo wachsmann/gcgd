@@ -7,34 +7,49 @@ package domine;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author 6197558
  */
 @Entity
+@XmlRootElement
 public class Parcel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private User user;
+    
+    @ManyToOne
+    private Expense expense;
+    
+    @OneToOne
+    public User user;
+
+
     private Calendar validity;
     private float value;
     private int status;
-
+    /*@OneToMany
+    private List<Payment> payments;
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 
     public Calendar getValidity() {
         return validity;
