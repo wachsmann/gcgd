@@ -7,11 +7,14 @@ package domine;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -26,11 +29,14 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "parcel_value")
     private float value;
-    private Calendar paid_at;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar paidAt;
     private boolean status;
     
-    @OneToOne
+    
+    @ManyToOne
     public Parcel parcel;
     
     public float getValue() {
@@ -41,12 +47,12 @@ public class Payment implements Serializable {
         this.value = value;
     }
 
-    public Calendar getPaid_at() {
-        return paid_at;
+    public Calendar getPaidAt() {
+        return paidAt;
     }
 
-    public void setPaid_at(Calendar paid_at) {
-        this.paid_at = paid_at;
+    public void setPaidAt(Calendar paidAt) {
+        this.paidAt = paidAt;
     }
 
     public boolean isStatus() {

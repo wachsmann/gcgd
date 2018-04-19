@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author wachsmann
  */
 @Stateless
-@Path("domine.expensetype")
+@Path("expensetype")
 public class ExpenseTypeFacadeREST extends AbstractFacade<ExpenseType> {
 
     @PersistenceContext(unitName = "CorgisPU")

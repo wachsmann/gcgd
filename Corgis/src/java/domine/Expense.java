@@ -18,6 +18,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -29,20 +30,24 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class Expense implements Serializable {
 
+    @OneToMany(mappedBy = "expense")
+    private List<Parcel> parcels;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Double total;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar validity;
     private String name;
     private String description;
     
     
-    @OneToOne
+    @ManyToOne
     public ExpenseType expenseType;
     
-    @OneToOne
+    @ManyToOne
     private User admin;
     
     @ManyToOne
@@ -80,21 +85,12 @@ public class Expense implements Serializable {
         this.description = description;
     }
 
-    /*public ExpenseType getExpenseType() {
+    public ExpenseType getExpenseType() {
         return expenseType;
     }
 
     public void setExpenseType(ExpenseType expenseType) {
         this.expenseType = expenseType;
-    }
-
-    @XmlTransient
-    public List<Parcel> getParcels() {
-        return parcels;
-    }
-
-    public void setParcels(List<Parcel> parcels) {
-        this.parcels = parcels;
     }
 
     public User getAdmin() {
@@ -104,7 +100,15 @@ public class Expense implements Serializable {
     public void setAdmin(User admin) {
         this.admin = admin;
     }
-    */
+
+    public Collective getGroup() {
+        return group;
+    }
+
+    public void setGroup(Collective group) {
+        this.group = group;
+    }
+
     public Long getId() {
         return id;
     }
