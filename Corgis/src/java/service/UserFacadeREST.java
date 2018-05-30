@@ -6,10 +6,17 @@
 package service;
 
 import domine.User;
+import java.lang.annotation.AnnotationFormatError;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidationException;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,7 +32,7 @@ import javax.ws.rs.core.MediaType;
  * @author wachsmann
  */
 @Stateless
-@Path("domine.user")
+@Path("user")
 public class UserFacadeREST extends AbstractFacade<User> {
 
     @PersistenceContext(unitName = "CorgisPU")
@@ -88,4 +95,27 @@ public class UserFacadeREST extends AbstractFacade<User> {
         return em;
     }
     
+    @GET
+    @Path("teste")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String testValidation() {
+       User user = new User();
+       
+        try {
+            
+       
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> constraints = validator
+                .validate(user);
+        for (ConstraintViolation<User> constraint : constraints) {
+                System.out.println(constraint.getPropertyPath() + "  "
+                + constraint.getMessage());
+        }
+         } catch (AnnotationFormatError e) {
+             System.out.println(e.getLocalizedMessage());
+        }
+        return String.valueOf(super.count());
+        
+    }
 }
