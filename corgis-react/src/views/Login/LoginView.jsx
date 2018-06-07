@@ -43,66 +43,70 @@ class LoginView extends React.Component {
     const { username, password, submitted } = this.state;
     
     return (
-      <Grid style={{marginTop:100}}>
-        <Row className="show-grid">
-          <Col xs={12} md={12}>
-            <h1>Login</h1>
-            <form onSubmit={this.handleSubmit}>
+        <html>
+            <body>
+                <div className="login-box">
+                    <div id="img"></div>
+                    <Col xs={12} md={12}>
+                        <h1>Login</h1>
+                        <form onSubmit={this.handleSubmit}>
 
-              <FormGroup
-                className={'form-group' + (submitted && !username ? ' has-error' : '')}
-                controlId="formE-mail"
-                //validationState={this.getValidationState()}
-              >
-                <ControlLabel>E-mail</ControlLabel>
-                
-                <FormControl
-                  type="text"
-                  placeholder="Seu e-mail"
-                  name="username" 
-                  value={username} 
-                  onChange={this.handleChange}
-                 // onChange={this.handleChange}
-                />
-                {submitted && !username &&
-                  <div className="help-block">
-                  E-mail inválido</div>
-                }
-                <FormControl.Feedback />
-                
-              </FormGroup>
-              
-              <FormGroup
-              className={'form-group' + (submitted && !password ? ' has-error' : '')}
-              controlId="formPassword"
-              //validationState={this.getValidationState()}
-              >
-                <ControlLabel>Senha</ControlLabel>
-                
-                <FormControl
-                  type="password"
-                  placeholder="Sua senha"
-                  name="password" 
-                  value={password} 
-                  onChange={this.handleChange}
-                 // onChange={this.handleChange}
-                />
-               {submitted && !password &&
-                <div className="help-block">
-                  Senha inválida
+                            <FormGroup
+                                className={'form-group' + (submitted && !username ? ' has-error' : '')}
+                                controlId="formE-mail"
+                                //validationState={this.getValidationState()}
+                            >
+                                <ControlLabel id="text">E-mail</ControlLabel>
+
+                                <FormControl
+                                    id="campoTexto"
+                                    type="text"
+                                    placeholder="Seu e-mail"
+                                    name="username"
+                                    value={username}
+                                    onChange={this.handleChange}
+                                    // onChange={this.handleChange}
+                                />
+                                {submitted && !username &&
+                                <div className="help-block">
+                                    E-mail inválido</div>
+                                }
+                                <FormControl.Feedback />
+
+                            </FormGroup>
+
+                            <FormGroup
+                                className={'form-group' + (submitted && !password ? ' has-error' : '')}
+                                controlId="formPassword"
+                                //validationState={this.getValidationState()}
+                            >
+                                <ControlLabel id="text">Senha</ControlLabel>
+
+                                <FormControl id="text"
+                                    id="campoTexto"
+                                    type="password"
+                                    placeholder="Sua senha"
+                                    name="password"
+                                    value={password}
+                                    onChange={this.handleChange}
+                                    // onChange={this.handleChange}
+                                />
+                                {submitted && !password &&
+                                <div className="help-block">
+                                    Senha inválida
+                                </div>
+                                }
+                                <FormControl.Feedback />
+
+                            </FormGroup>
+                            <div id="buttonSubmit" >
+                                <Button type="submit">Entrar</Button>
+                            </div>
+                        </form>
+                    </Col>
                 </div>
-                }
-                <FormControl.Feedback />
-                
-              </FormGroup>
-
-               <Button type="submit">Entrar</Button>
-
-            </form>
-          </Col>
-         
-        </Row>
-        </Grid>
+            </body>
+        </html>
     );
   }
 }
