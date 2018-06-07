@@ -4,7 +4,7 @@ import { Grid,Row,Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bo
 import { connect } from 'react-redux';
 
 import { userActions } from '../../_actions';
-
+import './index.css'
 class LoginView extends React.Component {
   constructor(props) {
     super(props);
