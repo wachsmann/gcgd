@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,9 @@ import javax.validation.constraints.Size;
  * @author 6197558
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "filtro_login", query = "select e from User e where e.email = :email and e.password = :password"),
+})
 public class User implements Serializable {
 
 
@@ -32,12 +37,12 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     
     private Long id;
     
-    @NotNull
+    
     //@Size(min=4)
     private String name;
     
@@ -49,7 +54,7 @@ public class User implements Serializable {
     private String email;
     
     
-    private Integer phone;
+    private String phone;
     
     public Long getId() {
         return id;
@@ -64,11 +69,11 @@ public class User implements Serializable {
         this.groups = groups;
     }*/
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

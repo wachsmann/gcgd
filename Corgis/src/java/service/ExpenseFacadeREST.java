@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author wachsmann
  */
 @Stateless
-@Path("domine.expense")
+@Path("private/expense")
 public class ExpenseFacadeREST extends AbstractFacade<Expense> {
 
     @PersistenceContext(unitName = "CorgisPU")
@@ -78,7 +78,7 @@ public class ExpenseFacadeREST extends AbstractFacade<Expense> {
 
     @GET
     @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String countREST() {
         return String.valueOf(super.count());
     }

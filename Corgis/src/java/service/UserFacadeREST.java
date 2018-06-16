@@ -10,7 +10,9 @@ import java.lang.annotation.AnnotationFormatError;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
+import javax.json.JsonArrayBuilder;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -25,14 +27,19 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import static javax.ws.rs.client.Entity.json;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Variant;
+import org.json.simple.JSONObject;
+import util.Criptografia;
 
 /**
  *
  * @author wachsmann
  */
 @Stateless
-@Path("user")
+@Path("public/user")
 public class UserFacadeREST extends AbstractFacade<User> {
 
     @PersistenceContext(unitName = "CorgisPU")
@@ -43,10 +50,11 @@ public class UserFacadeREST extends AbstractFacade<User> {
     }
 
     @POST
-    @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(User entity) {
-        super.create(entity);
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
+    public Response createUser(User entity) {
+        entity.setPassword(Criptografia.criptografar(entity.getPassword()));
+        em.persist(entity);
+        return Response.ok().build();
     }
 
     @PUT
@@ -61,7 +69,27 @@ public class UserFacadeREST extends AbstractFacade<User> {
     public void remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
     }
+    @PUT
+     @Path("/login")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response login(User entity) {
+       try{
+         User usuario = 
+         (User) this.em.createNamedQuery("filtro_login")
+                 .setParameter("email", entity.getName())
+                 .setParameter("password", Criptografia.criptografar(entity.getPassword()))
+                 .getSingleResult();
+        JSONObject obj = new JSONObject();
 
+        obj.put("user", usuario);
+        obj.put("token", Criptografia.tokenEncrypt(usuario.getName(), usuario.getPassword()));
+    
+        return Response.ok(obj, MediaType.APPLICATION_JSON).build();
+        
+        } catch(NoResultException e) {
+            return Response.status(406,e.getMessage()).build();
+        }
+    }
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -94,28 +122,5 @@ public class UserFacadeREST extends AbstractFacade<User> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-    @GET
-    @Path("teste")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String testValidation() {
-       User user = new User();
-       
-        try {
-            
-       
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<User>> constraints = validator
-                .validate(user);
-        for (ConstraintViolation<User> constraint : constraints) {
-                System.out.println(constraint.getPropertyPath() + "  "
-                + constraint.getMessage());
-        }
-         } catch (AnnotationFormatError e) {
-             System.out.println(e.getLocalizedMessage());
-        }
-        return String.valueOf(super.count());
-        
-    }
+
 }

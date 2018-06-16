@@ -9,6 +9,7 @@ import { history } from './_helpers';
 import { alertActions } from './_actions';
 import { PrivateRoute } from './_components';
 
+
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -25,6 +26,12 @@ class App extends Component {
       <div>
       <Router history={history}>
         <div>
+
+          <div className="col-sm-8 col-sm-offset-2">
+            {alert.message &&
+            <div className={`alert ${alert.type}`}>{alert.message}</div>
+            }
+          </div>
           <PrivateRoute exact path="/" component={HomeView} />
           <Route path="/login" component={LoginView}/>
           <Route path="/cadastro" component={RegisterView}/>
