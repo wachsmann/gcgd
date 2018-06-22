@@ -18,8 +18,8 @@ function login(username, password) {
        
         userService.login(username, password)
             .then(
-                user => { 
-                    dispatch(success(user));
+                obj => { 
+                    dispatch(success(obj.user));
                     history.push('/');
                 },
                 error => {
@@ -35,7 +35,7 @@ function login(username, password) {
 }
 
 function logout() {
-    //userService.logout();
+    userService.logout();
     return { type: userConstants.LOGOUT };
 }
 

@@ -3,7 +3,9 @@ import { Router, Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
-import {HomeView,LoginView,RegisterView} from './views';
+import {HomeView, LoginView, RegisterView, ProfileView, GroupView,
+        addGroup, editGroup, ExpenseView, addExpense, editExpense} from './views';
+
 //import {MainNavbar} from './_components';
 import { history } from './_helpers';
 import { alertActions } from './_actions';
@@ -32,9 +34,16 @@ class App extends Component {
             <div className={`alert ${alert.type}`}>{alert.message}</div>
             }
           </div>
-          <PrivateRoute exact path="/" component={HomeView} />
+          <PrivateRoute path="/perfil" component={ProfileView}/>
+          <PrivateRoute path="/grupo" component={GroupView}/>
+          <PrivateRoute path="/grupo-novo" component={addGroup}/>
+          <PrivateRoute path="/grupo/edicao" component={editGroup}/>
+          <PrivateRoute path="/despesa" component={ExpenseView}/>
+          <PrivateRoute path="/despesa-novo" component={addExpense}/>
+          <PrivateRoute path="/despesa-edicao" component={editExpense}/>
           <Route path="/login" component={LoginView}/>
           <Route path="/cadastro" component={RegisterView}/>
+          <PrivateRoute path="/" exact component={HomeView}/>
         </div>
       </Router>
      

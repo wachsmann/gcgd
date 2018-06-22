@@ -1,26 +1,52 @@
 import React from 'react';
 import {Nav,Navbar,NavItem} from 'react-bootstrap';
- 
+import { Link } from 'react-router-dom';
+import './navbar.css'
+import { history } from '../_helpers';
 export class MainNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+    var obj =JSON.parse(localStorage.getItem('user'));
+    this.state = {
+      user: obj.user,
+      
+    };
+  }
   render() {
+    const {user} = this.state;
+    
     return (
-         <Navbar>
-        <Navbar.Header>
-          <Navbar.Brand>
-          <a href="/home">Corgis</a>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Nav>
-          <NavItem eventKey={1} href="/login">
-          Login
-        
-          </NavItem>
-          <NavItem eventKey={2} href="/cadastro">
-          Cadastro
-          </NavItem>
-   
-        </Nav>
-      </Navbar>
+        <nav className="navbar navbar-default">
+            <div className="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                </button>
+                <Link to="/" className="navbar-brand">Corgis</Link>
+            </div>
+            <div id="navbarCollapse" className="collapse navbar-collapse">
+                <ul className="nav navbar-nav navbar-right">
+                    
+                    <li><a>Olá, {user.name}</a></li>
+
+                    
+                    <li>
+                      <Link to="/perfil" className="link">Perfil</Link>
+                    </li>
+                    <li>
+                      <Link to="/despesa" className="link">Despesa</Link>
+                    </li>
+                    <li>
+                      <Link to="/grupo" className="link">Grupo</Link>
+                    </li>
+                    <li>
+                      <Link to="/login" className="link">Sair</Link>
+                    </li>                  
+                </ul>
+            </div>
+        </nav>
     );
   }
 }
