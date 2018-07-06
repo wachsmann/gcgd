@@ -1,5 +1,4 @@
 import React from 'react';
-import { Grid,Row,Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
 import { userActions } from '../../_actions';
 import { connect } from 'react-redux';
 

@@ -9,6 +9,7 @@ import domine.Expense;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -64,9 +65,14 @@ public class ExpenseFacadeREST extends AbstractFacade<Expense> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Expense> findAll() {
-        return super.findAll();
+        try{         
+            return super.findAll();
+        
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
     @GET

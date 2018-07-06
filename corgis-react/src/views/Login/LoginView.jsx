@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid,Row,Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
+import {Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
  
 import { connect } from 'react-redux';
 
@@ -39,15 +39,19 @@ class LoginView extends React.Component {
   }
 
   render() {
-    const { loggingIn } = this.props;
+    const { loggingIn,alert } = this.props;
     const { username, password, submitted } = this.state;
-    
     return (
 
                 <div className="login-box">
                     <div id="img"></div>
                     <Col xs={12} md={12}>
                         <h1>Login</h1>
+                        { alert && alert.message ?
+                            <div className={`alert ${alert.type}`}>{alert.message}</div>
+                            :<div/>
+                        }
+
                         <form onSubmit={this.handleSubmit}>
 
                             <FormGroup
@@ -111,9 +115,12 @@ class LoginView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+    const { loggingIn} = state.authentication;
+    const { alert} = state;
+    
     return {
-        loggingIn
+        loggingIn,
+        alert
     };
 }
 

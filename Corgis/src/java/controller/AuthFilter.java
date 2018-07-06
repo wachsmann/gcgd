@@ -69,7 +69,7 @@ public class AuthFilter implements Filter {
                 String[] auth = Criptografia.tokenDecrypt(req.getHeader("Authorization"));
                 User usuario = null;
                 try{
-                    usuario = (User) this.em.createNamedQuery("filtro_login").setParameter("name", auth[0]).setParameter("password", auth[1]).getSingleResult();
+                    usuario = (User) this.em.createNamedQuery("filtro_login").setParameter("email", auth[0]).setParameter("password", auth[1]).getSingleResult();
                     req.setAttribute("user", usuario);
                     chain.doFilter(req, resp);
                 }catch(NoResultException e){

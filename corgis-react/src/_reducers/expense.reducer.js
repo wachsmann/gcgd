@@ -1,17 +1,17 @@
-import { groupConstants } from '../_constants';
+import { expenseConstants } from '../_constants';
 
-export function groups(state = {}, action) {
+export function expenses(state = {}, action) {
   switch (action.type) {
-    case groupConstants.GETALL_REQUEST:
+    case expenseConstants.GETALL_REQUEST:
       return {
         loading: true
       };
-    case groupConstants.GETALL_SUCCESS:
+    case expenseConstants.GETALL_SUCCESS:
  
       return {
         list: action.list
       };
-    case groupConstants.GETALL_FAILURE:
+    case expenseConstants.GETALL_FAILURE:
       return { 
         error: action.error
       };

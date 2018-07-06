@@ -14,7 +14,7 @@ function login(username, password) {
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name:username, password })
+        body: JSON.stringify({ email:username, password })
     };
    
     return fetch('http://localhost:8080/Corgis/api/public/user/login', requestOptions)

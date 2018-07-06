@@ -76,13 +76,13 @@ public class UserFacadeREST extends AbstractFacade<User> {
        try{
          User usuario = 
          (User) this.em.createNamedQuery("filtro_login")
-                 .setParameter("email", entity.getName())
+                 .setParameter("email", entity.getEmail())
                  .setParameter("password", Criptografia.criptografar(entity.getPassword()))
                  .getSingleResult();
         JSONObject obj = new JSONObject();
 
         obj.put("user", usuario);
-        obj.put("token", Criptografia.tokenEncrypt(usuario.getName(), usuario.getPassword()));
+        obj.put("token", Criptografia.tokenEncrypt(usuario.getEmail(), usuario.getPassword()));
     
         return Response.ok(obj, MediaType.APPLICATION_JSON).build();
         

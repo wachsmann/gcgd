@@ -13,7 +13,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(urlAppender('/groups'), requestOptions).then(handleResponse);
+    return fetch(urlAppender('/private/collective'), requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -50,7 +50,14 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(urlAppender('/group/' + user.id), requestOptions).then(handleResponse);;
+    return fetch(urlAppender('/group/' + user.id), requestOptions).then(response => {
+            console.log(response);
+            if (!response.ok) { 
+                return Promise.reject(response.statusText);
+            }
+            console.log(response);
+            return response;
+        });
 }
 
 
@@ -58,6 +65,6 @@ function handleResponse(response) {
     if (!response.ok) { 
         return Promise.reject(response.statusText);
     }
-
+    
     return response.json();
 }

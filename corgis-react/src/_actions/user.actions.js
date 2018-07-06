@@ -24,7 +24,7 @@ function login(username, password) {
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    dispatch(alertActions.error("E-mail ou senha incorretos!"));
                 }
         );
     };
@@ -48,11 +48,11 @@ function register(user) {
                 user => { 
                     dispatch(success());
                     history.push('/login');
-                    //dispatch(alertActions.success('Sucesso!'));
+                    dispatch(alertActions.success('Sucesso!'));
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    dispatch(alertActions.error("Erro no cadastro, verifique os campos!"));
                 }
             );
     };

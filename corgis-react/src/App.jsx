@@ -37,7 +37,7 @@ class App extends Component {
           <PrivateRoute path="/perfil" component={ProfileView}/>
           <PrivateRoute path="/grupo" component={GroupView}/>
           <PrivateRoute path="/grupo-novo" component={addGroup}/>
-          <PrivateRoute path="/grupo/edicao" component={editGroup}/>
+          <PrivateRoute path="/grupo-edicao" component={editGroup}/>
           <PrivateRoute path="/despesa" component={ExpenseView}/>
           <PrivateRoute path="/despesa-novo" component={addExpense}/>
           <PrivateRoute path="/despesa-edicao" component={editExpense}/>

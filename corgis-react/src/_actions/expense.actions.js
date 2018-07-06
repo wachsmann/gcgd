@@ -1,9 +1,9 @@
-import { groupConstants } from '../_constants';
-import { groupService } from '../_services';
+import { expenseConstants } from '../_constants';
+import { expenseService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
 
-export const groupActions = {
+export const expenseActions = {
 
     //register,
     getAll,
@@ -37,14 +37,14 @@ function getAll() {
     return dispatch => {
         dispatch(request());
         
-        groupService.getAll()
+        expenseService.getAll()
             .then(
                 list => dispatch(success(list)),
                 error => dispatch(failure(error))
             );
     };
 
-    function request() { return { type: groupConstants.GETALL_REQUEST } }
-    function success(list) { return { type: groupConstants.GETALL_SUCCESS, list } }
-    function failure(error) { return { type: groupConstants.GETALL_FAILURE, error } }
+    function request() { return { type: expenseConstants.GETALL_REQUEST } }
+    function success(list) { return { type: expenseConstants.GETALL_SUCCESS, list } }
+    function failure(error) { return { type: expenseConstants.GETALL_FAILURE, error } }
 }
