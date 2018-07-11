@@ -33,6 +33,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Variant;
 import org.json.simple.JSONObject;
 import util.Criptografia;
+import validation.userValidator;
 
 /**
  *
@@ -44,6 +45,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
 
     @PersistenceContext(unitName = "CorgisPU")
     private EntityManager em;
+    private userValidator uv = new userValidator();
 
     public UserFacadeREST() {
         super(User.class);
@@ -53,8 +55,11 @@ public class UserFacadeREST extends AbstractFacade<User> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
     public Response createUser(User entity) {
         entity.setPassword(Criptografia.criptografar(entity.getPassword()));
-        em.persist(entity);
-        return Response.ok().build();
+        if (uv.validate(entity) == "ok") {
+            em.persist(entity);
+            return Response.ok().build();
+        }
+        return Response.status(422, uv.validate(entity)).build();
     }
 
     @PUT
