@@ -9,6 +9,7 @@ import domine.Expense;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,7 +26,7 @@ import javax.ws.rs.core.MediaType;
  * @author wachsmann
  */
 @Stateless
-@Path("domine.expense")
+@Path("private/expense")
 public class ExpenseFacadeREST extends AbstractFacade<Expense> {
 
     @PersistenceContext(unitName = "CorgisPU")
@@ -64,9 +65,14 @@ public class ExpenseFacadeREST extends AbstractFacade<Expense> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Expense> findAll() {
-        return super.findAll();
+        try{         
+            return super.findAll();
+        
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
     @GET
@@ -78,7 +84,7 @@ public class ExpenseFacadeREST extends AbstractFacade<Expense> {
 
     @GET
     @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String countREST() {
         return String.valueOf(super.count());
     }

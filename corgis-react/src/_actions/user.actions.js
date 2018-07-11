@@ -1,5 +1,5 @@
 import { userConstants } from '../_constants';
-//import { userService } from '../_services';
+import { userService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
 
@@ -14,18 +14,19 @@ export const userActions = {
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
-
-       /* userService.login(username, password)
+        
+       
+        userService.login(username, password)
             .then(
-                user => { 
-                    dispatch(success(user));
+                obj => { 
+                    dispatch(success(obj.user));
                     history.push('/');
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    dispatch(alertActions.error("E-mail ou senha incorretos!"));
                 }
-            );*/
+        );
     };
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
@@ -34,7 +35,7 @@ function login(username, password) {
 }
 
 function logout() {
-    //userService.logout();
+    userService.logout();
     return { type: userConstants.LOGOUT };
 }
 
@@ -42,18 +43,18 @@ function register(user) {
     return dispatch => {
         dispatch(request(user));
 
-        /*userService.register(user)
+        userService.register(user)
             .then(
                 user => { 
                     dispatch(success());
                     history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
+                    dispatch(alertActions.success('Sucesso!'));
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    dispatch(alertActions.error("Erro no cadastro, verifique os campos!"));
                 }
-            );*/
+            );
     };
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
@@ -65,11 +66,11 @@ function getAll() {
     return dispatch => {
         dispatch(request());
 
-        /*userService.getAll()
+        userService.getAll()
             .then(
                 users => dispatch(success(users)),
                 error => dispatch(failure(error))
-            );*/
+            );
     };
 
     function request() { return { type: userConstants.GETALL_REQUEST } }
@@ -94,6 +95,5 @@ function _delete(id) {
     };
 
     function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
-    function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
-    function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
+   
 }

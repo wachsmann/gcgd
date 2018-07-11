@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router';
-import { Link } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
-import {HomeView,LoginView,RegisterView} from './views';
+import {HomeView, LoginView, RegisterView, ProfileView, GroupView,
+        addGroup, editGroup, ExpenseView, addExpense, editExpense} from './views';
+
 //import {MainNavbar} from './_components';
 import { history } from './_helpers';
 import { alertActions } from './_actions';
 import { PrivateRoute } from './_components';
+
 
 class App extends Component {
 	constructor(props) {
@@ -25,9 +27,22 @@ class App extends Component {
       <div>
       <Router history={history}>
         <div>
-          <PrivateRoute exact path="/" component={HomeView} />
+
+          <div className="col-sm-8 col-sm-offset-2">
+            {alert.message &&
+            <div className={`alert ${alert.type}`}>{alert.message}</div>
+            }
+          </div>
+          <PrivateRoute path="/perfil" component={ProfileView}/>
+          <PrivateRoute path="/grupo" component={GroupView}/>
+          <PrivateRoute path="/grupo-novo" component={addGroup}/>
+          <PrivateRoute path="/grupo-edicao" component={editGroup}/>
+          <PrivateRoute path="/despesa" component={ExpenseView}/>
+          <PrivateRoute path="/despesa-novo" component={addExpense}/>
+          <PrivateRoute path="/despesa-edicao" component={editExpense}/>
           <Route path="/login" component={LoginView}/>
           <Route path="/cadastro" component={RegisterView}/>
+          <PrivateRoute path="/" exact component={HomeView}/>
         </div>
       </Router>
      

@@ -1,0 +1,12 @@
+a {
+    font-weight: bold;
+}
+.teste{
+    background: url(../assets/images/smartphone-icon.png);
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+}
+.text2{
+    width:30%;
+}

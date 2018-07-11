@@ -5,6 +5,7 @@ body{
   background-size: cover;
   background-position: center;
   font-family: sans-serif;
+  color:black;
 }
 #img{
   background-image: url(../../assets/images/avatar.png);
@@ -16,9 +17,12 @@ body{
   top: -50px;
   left: calc(50% - 50px);
 }
+label{
+  color:black;
+}
 .login-box{
   width: 500px;
-  height: 420px;
+  height: 500px;
   background: white;
   color: #fff;
   top: 50%;
@@ -55,7 +59,7 @@ h1{
   width: 100%;
   margin-bottom: 20px;
 }
-#campoTexto{
+.campoTexto{
   background: #E6E6E6;
   color: black;
 }
@@ -69,7 +73,7 @@ h1{
   background: transparent;
   outline: none;
   height: 40px;
-  color: #fff;
+  color: black;
   font-size: 16px;
 }
 .login-box input[type="submit"]

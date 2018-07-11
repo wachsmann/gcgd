@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid,Row,Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
+import {Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
  
 import { connect } from 'react-redux';
 
@@ -39,33 +39,37 @@ class LoginView extends React.Component {
   }
 
   render() {
-    const { loggingIn } = this.props;
+    const { alert } = this.props;
     const { username, password, submitted } = this.state;
-    
     return (
-        <html>
-            <body>
+
                 <div className="login-box">
                     <div id="img"></div>
                     <Col xs={12} md={12}>
                         <h1>Login</h1>
+                        { alert && alert.message ?
+                            <div className={`alert ${alert.type}`}>{alert.message}</div>
+                            :<div/>
+                        }
+
                         <form onSubmit={this.handleSubmit}>
 
                             <FormGroup
                                 className={'form-group' + (submitted && !username ? ' has-error' : '')}
-                                controlId="formE-mail"
+                                
                                 //validationState={this.getValidationState()}
                             >
-                                <ControlLabel id="text">E-mail</ControlLabel>
+                                <ControlLabel>E-mail</ControlLabel>
 
                                 <FormControl
-                                    id="campoTexto"
+                                    className={"campoTexto"}
+                                   
                                     type="text"
                                     placeholder="Seu e-mail"
                                     name="username"
                                     value={username}
                                     onChange={this.handleChange}
-                                    // onChange={this.handleChange}
+                                  
                                 />
                                 {submitted && !username &&
                                 <div className="help-block">
@@ -80,16 +84,16 @@ class LoginView extends React.Component {
                                 controlId="formPassword"
                                 //validationState={this.getValidationState()}
                             >
-                                <ControlLabel id="text">Senha</ControlLabel>
+                                <ControlLabel>Senha</ControlLabel>
 
-                                <FormControl id="text"
-                                    id="campoTexto"
+                                <FormControl
+                                    className={"campoTexto"}
                                     type="password"
                                     placeholder="Sua senha"
                                     name="password"
                                     value={password}
                                     onChange={this.handleChange}
-                                    // onChange={this.handleChange}
+                                   
                                 />
                                 {submitted && !password &&
                                 <div className="help-block">
@@ -105,16 +109,16 @@ class LoginView extends React.Component {
                         </form>
                     </Col>
                 </div>
-            </body>
-        </html>
+
     );
   }
 }
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+    const { alert} = state;
+    
     return {
-        loggingIn
+        alert
     };
 }
 

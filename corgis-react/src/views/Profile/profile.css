@@ -1,0 +1,9 @@
+a {
+    font-weight: bold;
+}
+.aw-menu > li a:hover, .aw-menu > li a:focus {
+    background-color: #dfdfdf;
+}
+.aw-menu > li a {
+    background-color:transparent
+}
