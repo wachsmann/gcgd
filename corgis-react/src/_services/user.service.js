@@ -1,4 +1,4 @@
-import { authHeader } from '../_helpers';
+import { authHeader,urlAppender } from '../_helpers';
 
 export const userService = {
     login,
@@ -17,7 +17,7 @@ function login(username, password) {
         body: JSON.stringify({ email:username, password })
     };
    
-    return fetch('http://localhost:8080/Corgis/api/public/user/login', requestOptions)
+    return fetch(urlAppender('/public/user/login'), requestOptions)
         .then(response => {
             console.log(response);
             if (!response.ok) { 
@@ -49,7 +49,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch('/users', requestOptions).then(handleResponse);
+    return fetch(urlAppender('/public/user'), requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -68,7 +68,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch('http://localhost:8080/Corgis/api/public/user', requestOptions)
+    return fetch(urlAppender('/public/user'), requestOptions)
         .then(response => {
             console.log(response);
             if (!response.ok) { 
@@ -86,7 +86,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch('/users/' + user.id, requestOptions).then(handleResponse);;
+    return fetch('/users/' + user.id, requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -96,7 +96,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch('/users/' + id, requestOptions).then(handleResponse);;
+    return fetch('/users/' + id, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

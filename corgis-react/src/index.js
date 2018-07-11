@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { store } from './_helpers';
 
 import { BrowserRouter } from 'react-router-dom'
-import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
 	<BrowserRouter>

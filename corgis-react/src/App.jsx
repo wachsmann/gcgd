@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router';
-import { Link } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
 import {HomeView, LoginView, RegisterView, ProfileView, GroupView,

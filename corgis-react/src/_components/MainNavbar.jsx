@@ -1,8 +1,6 @@
 import React from 'react';
-import {Nav,Navbar,NavItem} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './navbar.css'
-import { history } from '../_helpers';
 export class MainNavbar extends React.Component {
   constructor(props) {
     super(props);

@@ -1,12 +1,10 @@
 import React from 'react';
-import {MainNavbar } from '../../_components';
 import './home.css'
 export class HomeView extends React.Component {
 
   render() {
     return (
         <div>
-            <MainNavbar/>
             <div className="content">
                 <div className="col-md-12 container clearfix">
                     <div className="row">

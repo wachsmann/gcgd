@@ -1,7 +1,7 @@
 import { groupConstants } from '../_constants';
 import { groupService } from '../_services';
-import { alertActions } from './';
-import { history } from '../_helpers';
+//import { alertActions } from './';
+//import { history } from '../_helpers';
 
 export const groupActions = {
 

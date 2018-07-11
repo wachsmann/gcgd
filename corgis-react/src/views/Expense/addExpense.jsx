@@ -1,14 +1,13 @@
 import React from 'react';
-import {MainNavbar} from "../../_components";
 import { Link } from 'react-router-dom';
 
 import './expense.css'
+import CollabListLine from "../../_components/Expenses/CollabListLine";
 
 export class addExpense extends React.Component {
   render() {
     return (
         <div>
-            <MainNavbar/>
             <div class="container">
                 <div class="row">   
                     <div class="col-md-12">
@@ -86,33 +85,14 @@ export class addExpense extends React.Component {
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
-                                              <td>John</td>
-                                              <td>R$ 1.500,00</td>
-                                              <td>
-                                                <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>Ted</td>
-                                              <td>R$ 1.200,00</td>
-                                              <td>
-                                                <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>Leo</td>
-                                              <td>R$ 500,00</td>
-                                              <td>
-                                                <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                              </td>
-                                            </tr>
+                                            
+                                          <CollabListLine name={"Jarbas"} value={"1000"} id={1} />
                                           </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <hr/>
-                                <Link to="/despesa" title="Voltar" className="btn btn-warning" title="Voltar">Voltar</Link>
+                                <Link to="/despesa" className="btn btn-warning" title="Voltar">Voltar</Link>
 
                                
                                 <div class="pull-right">

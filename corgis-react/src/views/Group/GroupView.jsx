@@ -1,5 +1,4 @@
 import React from 'react';
-import {MainNavbar} from "../../_components";
 
 import { connect } from 'react-redux';
 
@@ -11,7 +10,6 @@ class GroupView extends React.Component {
    constructor(props) {
     super(props);
 
-    // reset login status
     this.props.dispatch(groupActions.getAll());
   }
   render() {
@@ -19,7 +17,6 @@ class GroupView extends React.Component {
    
     return (
         <div>
-            <MainNavbar/>
             <div className="container">
                 <div className="row">   
                     <div className="col-md-12">
@@ -27,7 +24,7 @@ class GroupView extends React.Component {
                             <div className="panel-heading">
                                 <span className="glyphicon glyphicon-user"></span>    Grupos
                                 <div className="button pull-right">
-                                <Link to="/grupo-novo" title="Voltar" className="btn btn-info" title="Adicionar">Adicionar</Link>
+                                <Link to="/grupo-novo" className="btn btn-info" title="Adicionar">Adicionar</Link>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -43,11 +40,11 @@ class GroupView extends React.Component {
                                           </thead>
                                           <tbody>
                                           {list && list.map((result, i) =>
-                                            <tr><td>{result.name}</td>
+                                            <tr key={result.id}><td>{result.name}</td>
                                             <td>{i}</td>
                                             <td>
-                                                <a id={result.users.length} className='btn btn-danger glyphicon glyphicon-remove' data-toggle='tooltip' title='Visualizar'></a>
-                                                <a id={result.users.length}  className='btn btn-primary glyphicon glyphicon-pencil' data-toggle='tooltip' title='Visualizar'></a>
+                                                <a id={result.users.length} data-toggle='tooltip' title='Visualizar'><i className='btn btn-danger glyphicon glyphicon-remove'></i> </a>
+                                                <a id={result.users.length}  data-toggle='tooltip' title='Visualizar'><i  className='btn btn-primary glyphicon glyphicon-pencil'></i> </a>
                                               </td></tr>
                                             )}
                                          

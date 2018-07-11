@@ -1,5 +1,4 @@
 import React from 'react';
-import {MainNavbar} from "../../_components";
 import { Link } from 'react-router-dom';
 
 import './group.css'
@@ -8,7 +7,6 @@ export class editGroup extends React.Component {
   render() {
     return (
         <div>
-            <MainNavbar/>
             <div class="container">
                 <div class="row">   
                     <div class="col-md-12">
@@ -51,23 +49,10 @@ export class editGroup extends React.Component {
                                                       <td>Leonardo Dalbosco</td>
                                                       <td>leodalbosco@hotmail.com</td>
                                                       <td>
-                                                        <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
+                                                        <a href="" data-toggle="tooltip" title="Visualizar"><i  className="btn btn-danger glyphicon glyphicon-remove"></i></a>
                                                       </td>
                                                     </tr>
-                                                    <tr>
-                                                      <td>Daniel Battisti</td>
-                                                      <td>daniel@hotmail.com</td>
-                                                      <td>
-                                                        <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>Victor Hugo F. Wachsmann</td>
-                                                      <td>victor@hotmail.com</td>
-                                                      <td>
-                                                        <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                                      </td>
-                                                    </tr>
+                                                  
                                                   </tbody>
                                                 </table>
                                             </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import {MainNavbar} from "../../_components";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { expenseActions } from '../../_actions';
@@ -17,7 +16,6 @@ class ExpenseView extends React.Component {
     const { list } = this.props;
     return (
         <div>
-            <MainNavbar/>
             <div className="container">
                 <div className="row">   
                     <div className="col-md-12">
@@ -25,7 +23,7 @@ class ExpenseView extends React.Component {
                             <div className="panel-heading">
                                 <span className="glyphicon glyphicon-retweet"></span>   Despesas
                                 <div className="button pull-right">
-                                  <Link to="/despesa-novo" title="Voltar" className="btn btn-info" title="Adicionar">Adicionar</Link>
+                                  <Link to="/despesa-novo" className="btn btn-info" title="Adicionar">Adicionar</Link>
 
                                     
                                 </div>
@@ -62,36 +60,36 @@ class ExpenseView extends React.Component {
                                     </div>
                                     <div className="form-group col-md-1">
                                         <div className="box-body">
-                                            <a href="expense" className="btn btn-primary glyphicon glyphicon-search" data-toggle="tooltip" title="Visualizar"></a>
+                                            <a href="expense"  data-toggle="tooltip" title="Visualizar"><i className="btn btn-primary glyphicon glyphicon-search"></i> </a>
                                          </div>
                                     </div>
                                     <div className="col-xs-6 col-md-12">
                                         <table className="table table-bordered">
                                           <thead>
                                             <tr bgcolor="#ddd">
-                                              <th>Usuário</th>
+                                              <th style={{width:200}}>Usuário</th>
                                               <th>Nome</th>
-                                              <th>Descrição</th>
                                               <th>Status</th>
-                                              <th>Quantidade de parcelas</th>
+                                              <th style={{width:50}}>Parcelas</th>
                                               <th>Data de vencimento</th>
+                                              <th>Grupo</th>
                                               <th>Valor</th>
                                               <th>Ações</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             {list && list.map((result, i) =>
-                                              <tr>
+                                              <tr key={result.id}>
                                               <td>{result.admin.name}</td>
                                               <td>{result.name}</td>
-                                              <td>{result.description}</td>
                                               <td>{result.status}</td>
                                               <td>-</td>
-                                              <td>{result.validity}</td>
+                                              <td>{result.validity.slice(0,10)}</td>
+                                              <td>{result.group.name}</td>
                                               <td>{result.total}</td>
 
                                               <td>
-                                              <a className="btn btn-primary glyphicon glyphicon-pencil" data-toggle="tooltip" title="Visualizar"></a>
+                                              <a data-toggle="tooltip" title="Visualizar"><i className="btn btn-primary glyphicon glyphicon-pencil"></i></a>
                                               </td>
                                             </tr>
                                             )}

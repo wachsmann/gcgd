@@ -1,5 +1,4 @@
 import React from 'react';
-import {MainNavbar} from "../../_components";
 
 import './profile.css'
 
@@ -22,7 +21,6 @@ export class ProfileView extends React.Component {
     const {name,email,phone} = this.state;
     return (
         <div>
-            <MainNavbar/>
             <div className="container">
     <div className="row">
         <div className="col-md-12">
@@ -35,31 +33,31 @@ export class ProfileView extends React.Component {
                         <div className="col-xs-6 col-md-6">
                             <form>
                                 <div className="form-group">
-                                  <label for="exampleInputEmail1">Nome</label>
+                                  <label>Nome</label>
                                   <input type="email" value={name} className="form-control" 
-                                  id="exampleInputEmail1" aria-describedby="emailHelp" disabled></input>
+                                   aria-describedby="emailHelp" disabled></input>
                                 </div>
                                 <div className="form-group">
-                                  <label for="exampleInputEmail1">E-mail</label>
+                                  <label >E-mail</label>
                                   <input type="email" className="form-control" value={email}
-                                  id="exampleInputEmail1" aria-describedby="emailHelp" disabled></input>
+                                   aria-describedby="emailHelp" disabled></input>
                                 </div>
                                 <div className="form-group">
-                                  <label for="exampleInputEmail1">Telefone</label>
+                                  <label >Telefone</label>
                                   <input type="email" className="form-control" value={phone}
-                                   id="exampleInputEmail1" aria-describedby="emailHelp" disabled></input>
+                                    aria-describedby="emailHelp" disabled></input>
                                 </div>
                             </form>
                         </div>
                         <div className="col-xs-6 col-md-6">
                           <form>
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Nova Senha</label>
-                                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+                                    <label >Nova Senha</label>
+                                    <input type="password" className="form-control"  placeholder="Password"></input>
                                 </div>
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Confirmar Nova Senha</label>
-                                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+                                    <label >Confirmar Nova Senha</label>
+                                    <input type="password" className="form-control"  placeholder="Password"></input>
                                 </div>
                                 <button type="submit" className="btn btn-primary">Alterar Senha</button>
                             </form>

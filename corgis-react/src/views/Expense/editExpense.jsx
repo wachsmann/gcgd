@@ -1,5 +1,4 @@
 import React from 'react';
-import {MainNavbar} from "../../_components";
 
 import './expense.css'
 
@@ -7,7 +6,6 @@ export class editExpense extends React.Component {
   render() {
     return (
         <div>
-            <MainNavbar/>
             <div class="container">
                 <div class="row">   
                     <div class="col-md-12">
@@ -91,28 +89,11 @@ export class editExpense extends React.Component {
                                               <td>R$ 1.500,00</td>
                                               <td><kbd>Pago</kbd></td>
                                               <td>
-                                                <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Remover"></a>
-                                                <a href="" class="btn btn-warning glyphicon glyphicon-usd" data-toggle="tooltip" title="Pendente"></a>
+                                                <a href=""  data-toggle="tooltip" title="Remover"><i className="btn btn-danger glyphicon glyphicon-remove"></i></a>
+                                                <a href="" data-toggle="tooltip" title="Pendente"><i className="btn btn-warning glyphicon glyphicon-usd"></i></a>
                                               </td>
                                             </tr>
-                                            <tr>
-                                              <td>Ted</td>
-                                              <td>R$ 1.200,00</td>
-                                              <td><kbd>Pendente</kbd></td>
-                                              <td>
-                                                <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Remover"></a>
-                                                <a href="" class="btn btn-primary glyphicon glyphicon-usd" data-toggle="tooltip" title="Pagar"></a>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>Leo</td>
-                                              <td>R$ 500,00</td>
-                                              <td><kbd>Pago</kbd></td>
-                                              <td>
-                                                <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Remover"></a>
-                                                <a href="" class="btn btn-warning glyphicon glyphicon-usd" data-toggle="tooltip" title="Pendente"></a>
-                                              </td>
-                                            </tr>
+
                                           </tbody>
                                         </table>
                                     </div>

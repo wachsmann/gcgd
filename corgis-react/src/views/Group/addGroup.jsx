@@ -1,46 +1,64 @@
 import React from 'react';
-import {MainNavbar} from "../../_components";
 import { Link } from 'react-router-dom';
-import './group.css'
-
+import './group.css';
+import UserListLine from "../../_components/Groups/UserListLine";
+import {UserSelector} from "../../_components/UserSelector";
 export class addGroup extends React.Component {
+  constructor(props) {
+        super(props);
+
+        this.state = {
+            users:[],
+            selectedUser:{}
+        };
+
+       
+  }
+
+  handleSelector(selected) {
+    
+    console.log(selected);
+    //this.setState({ selectedUser:{selected}});
+    //https://stackoverflow.com/questions/41317343/react-js-how-to-access-to-input-value-in-child-component
+  }
+   addUser() {
+    console.log(this.props);
+      //this.setState({ users.push()});
+   }
+
   render() {
     return (
         <div>
-            <MainNavbar/>
-            <div class="container">
-                <div class="row">   
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span class="glyphicon glyphicon-user"></span>    Novo Grupo
+            <div className="container">
+                <div className="row">   
+                    <div className="col-md-12">
+                        <div className="panel panel-default">
+                            <div className="panel-heading">
+                                <span className="glyphicon glyphicon-user"></span>    Novo Grupo
                             </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-xs-6 col-md-6">
+                            <div className="panel-body">
+                                <div className="row">
+                                    <div className="col-xs-6 col-md-6">
                                         <form>
-                                            <div class="form-group">
-                                              <label for="nomeGrupo">Nome do Grupo</label>
-                                              <input type="nome" class="form-control" id="nome" aria-describedby="nome"></input>
+                                            <div className="form-group">
+                                              <label >Nome do Grupo</label>
+                                              <input type="nome" className="form-control" id="nome" aria-describedby="nome"></input>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="col-xs-6 col-md-6">                                        
-                                        <label for="inputUsuario">Selecione um Usuário para vincular ao Grupo</label>
-                                        <div class="input-group">
-                                            <select id="inputState" class="form-control">
-                                                <option selected>Todos</option>
-                                                <option>...</option>
-                                            </select>
-                                          <span class="input-group-btn">
-                                            <button class="btn btn-success" type="button">Inserir</button>
+                                    <div className="col-xs-6 col-md-6">                                        
+                                        <label >Selecione um Usuário para vincular ao Grupo</label>
+                                        <div className="input-group">
+                                          <UserSelector handleChange={this.handleSelector} />
+                                          <span className="input-group-btn">
+                                            <button onClick={this.addUser} className="btn btn-success" type="button">Inserir</button>
                                           </span>
                                         </div>
                                     </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-md-12">
-                                                <table class="table table-bordered">
+                                    <div className="panel-body">
+                                        <div className="row">
+                                            <div className="col-xs-6 col-md-12">
+                                                <table className="table table-bordered">
                                                   <thead>
                                                     <tr bgcolor="#ddd">
                                                       <th>Nome</th>
@@ -49,27 +67,9 @@ export class addGroup extends React.Component {
                                                     </tr>
                                                   </thead>
                                                   <tbody>
-                                                    <tr>
-                                                      <td>Leonardo Dalbosco</td>
-                                                      <td>leodalbosco@hotmail.com</td>
-                                                      <td>
-                                                        <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>Daniel Battisti</td>
-                                                      <td>daniel@hotmail.com</td>
-                                                      <td>
-                                                        <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>Victor Hugo F. Wachsmann</td>
-                                                      <td>victor@hotmail.com</td>
-                                                      <td>
-                                                        <a href="" class="btn btn-danger glyphicon glyphicon-remove" data-toggle="tooltip" title="Visualizar"></a>
-                                                      </td>
-                                                    </tr>
+                                                    <UserListLine name={"Jarbas"} email={"jarbas@gmail.com"} id={1} />
+
+                                              
                                                   </tbody>
                                                 </table>
                                             </div>
@@ -79,8 +79,8 @@ export class addGroup extends React.Component {
                                 <hr/>
                                 <Link to="/grupo" title="Voltar" className="btn btn-warning">Voltar</Link>
                                 
-                                <div class="pull-right">
-                                    <a href="group" class="btn btn-success" data-toggle="tooltip" title="Salvar"> Salvar</a>
+                                <div className="pull-right">
+                                    <a href="group" className="btn btn-success" data-toggle="tooltip" title="Salvar"> Salvar</a>
                                 </div>
                             </div>
                         </div>

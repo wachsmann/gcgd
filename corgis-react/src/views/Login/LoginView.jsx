@@ -39,7 +39,7 @@ class LoginView extends React.Component {
   }
 
   render() {
-    const { loggingIn,alert } = this.props;
+    const { alert } = this.props;
     const { username, password, submitted } = this.state;
     return (
 
@@ -115,11 +115,9 @@ class LoginView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { loggingIn} = state.authentication;
     const { alert} = state;
     
     return {
-        loggingIn,
         alert
     };
 }
