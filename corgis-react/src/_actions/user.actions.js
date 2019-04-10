@@ -7,6 +7,7 @@ export const userActions = {
     login,
     logout,
     register,
+    update,
     getAll,
     delete: _delete
 };
@@ -61,7 +62,27 @@ function register(user) {
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
+function update(user) {
+    return dispatch => {
+        dispatch(request(user));
 
+        userService.update(user)
+            .then(
+                user => { 
+                    dispatch(success());
+                    dispatch(alertActions.success('Sucesso!'));
+                },
+                error => {
+                    dispatch(failure(error));
+                    dispatch(alertActions.error("Erro no cadastro, verifique os campos!"));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.UPDATE_REQUEST, user } }
+    function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
+}
 function getAll() {
     return dispatch => {
         dispatch(request());
@@ -83,17 +104,20 @@ function _delete(id) {
     return dispatch => {
         dispatch(request(id));
 
-        /*userService.delete(id)
+        userService.delete(id)
             .then(
                 user => { 
+                    history.push('/login');
                     dispatch(success(id));
                 },
                 error => {
                     dispatch(failure(id, error));
                 }
-            );*/
+            );
     };
 
     function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
-   
+       
+    function success() { return { type: userConstants.DELETE_SUCCESS} }
+    function failure(error) { return { type: userConstants.DELETE_FAILURE, error } }
 }

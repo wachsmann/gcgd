@@ -1,8 +1,11 @@
 import React from 'react';
 
 import './profile.css'
+import { userActions } from '../../_actions';
+import {Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-export class ProfileView extends React.Component {
+ class ProfileView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,15 +15,43 @@ export class ProfileView extends React.Component {
       password: '',
       email:obj.user.email,
       phone:obj.user.phone,
+      id:obj.user.id,
       submitted: false
     };
 
+       this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }  
+    handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  } 
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({ submitted: true });
+    const {id, name, password,email,phone } = this.state;
+    const { dispatch } = this.props;
+    if (name && password) {
+      dispatch(userActions.update({ id,name, password,email,phone}));
+    }
+  } 
+  handleDelete(e) {
+    e.preventDefault();
+    
+    //if (confirm("Deseja realmente excluir sua conta?!")) {
+        const {id, name, password,email,phone } = this.state;
+    const { dispatch } = this.props;
+          dispatch(userActions.delete(id));
+    //}
    
-  }    
+    
+  } 
   render() {
-    const {name,email,phone} = this.state;
+    const {id,name,email,phone,submitted,password} = this.state;
     return (
-        <div>
+        
             <div className="container">
     <div className="row">
         <div className="col-md-12">
@@ -31,37 +62,116 @@ export class ProfileView extends React.Component {
                 <div className="panel-body">
                     <div className="row">
                         <div className="col-xs-6 col-md-6">
-                            <form>
+                          <form onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                   <label>Nome</label>
-                                  <input type="email" value={name} className="form-control" 
-                                   aria-describedby="emailHelp" disabled></input>
+                                  <input type="hidden" value={id}></input> 
+                                  <FormControl
+                                    className={"form-control"}
+                                   
+                                    type="text"
+                                    placeholder="Seu nome"
+                                    name="name"
+                                    value={name}
+                                    onChange={this.handleChange}
+                                  
+                                />
+                                {submitted && !name &&
+                                <div className="help-block">
+                                    Nome inválido</div>
+                                }
+                                <FormControl.Feedback />
+
+                                                              
                                 </div>
                                 <div className="form-group">
                                   <label >E-mail</label>
-                                  <input type="email" className="form-control" value={email}
-                                   aria-describedby="emailHelp" disabled></input>
+                            
+                                   <FormControl
+                                    className={"form-control"}
+                                   
+                                    type="text"
+                                    placeholder="Seu email"
+                                    name="email"
+                                    value={email}
+                                    onChange={this.handleChange}
+                                  
+                                />
+                                {submitted && !email &&
+                                <div className="help-block">
+                                    Email inválido</div>
+                                }
+                                <FormControl.Feedback />
                                 </div>
                                 <div className="form-group">
                                   <label >Telefone</label>
-                                  <input type="email" className="form-control" value={phone}
-                                    aria-describedby="emailHelp" disabled></input>
+                             
+                                   <FormControl
+                                    className={"form-control"}
+                                   
+                                    type="text"
+                                    placeholder="Seu telefone"
+                                    name="phone"
+                                    value={phone}
+                                    onChange={this.handleChange}
+                                  
+                                />
+                                {submitted && !phone &&
+                                <div className="help-block">
+                                    Telefone inválido</div>
+                                }
+                                <FormControl.Feedback />
                                 </div>
-                            </form>
-                        </div>
+                            
+                        
                         <div className="col-xs-6 col-md-6">
-                          <form>
+                          
                                 <div className="form-group">
                                     <label >Nova Senha</label>
-                                    <input type="password" className="form-control"  placeholder="Password"></input>
+                                      <FormControl
+                                    className={"form-control"}
+                                   
+                                    type="password"
+                                    placeholder="Seu senha"
+                                    name="password"
+                                    value={password}
+                                    onChange={this.handleChange}
+                                  
+                                />
+                                {submitted && !password &&
+                                <div className="help-block">
+                                    Senha inválido</div>
+                                }
+                                <FormControl.Feedback />
                                 </div>
                                 <div className="form-group">
-                                    <label >Confirmar Nova Senha</label>
-                                    <input type="password" className="form-control"  placeholder="Password"></input>
+                                    
+
+                                    
+                                     <FormControl
+                                    className={"form-control"}
+                                   
+                                    type="hidden"
+                                    placeholder="Seu senha"
+                                    name="password"
+                                    
+                                    onChange={this.handleChange}
+                                  
+                                />
+                               
+                                <FormControl.Feedback />
                                 </div>
-                                <button type="submit" className="btn btn-primary">Alterar Senha</button>
-                            </form>
+                               <div id="buttonSubmit" >
+                                <Button type="submit">Alterar</Button>
+                            </div>
+                            
+
+
                         </div>
+                              <div>
+                                <Button onClick={this.handleDelete}>Deletar conta</Button>
+                            </div>
+                      </form>
                     </div>
                 </div>
             </div>
@@ -72,3 +182,15 @@ export class ProfileView extends React.Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+    const { alert} = state;
+    
+    return {
+        alert
+    };
+}
+
+const connectedProfileView = connect(mapStateToProps)(ProfileView);
+export { connectedProfileView as ProfileView }; 

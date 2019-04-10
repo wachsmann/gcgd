@@ -68,7 +68,8 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(urlAppender('/public/user'), requestOptions)
+
+    return fetch(urlAppender('/user/create'), requestOptions)
         .then(response => {
             console.log(response);
             if (!response.ok) { 
@@ -86,7 +87,8 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch('/users/' + user.id, requestOptions).then(handleResponse);
+
+    return fetch(urlAppender('/user/' + user.id), requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -96,7 +98,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch('/users/' + id, requestOptions).then(handleResponse);
+    return fetch(urlAppender('/user/' + id), requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
