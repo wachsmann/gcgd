@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import './group.css';
 import UserListLine from "../../_components/Groups/UserListLine";
 import {UserSelector} from "../../_components/UserSelector";
+import {Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
+
+import { connect } from 'react-redux';
+
 export class addGroup extends React.Component {
   constructor(props) {
         super(props);
@@ -22,7 +26,7 @@ export class addGroup extends React.Component {
     //https://stackoverflow.com/questions/41317343/react-js-how-to-access-to-input-value-in-child-component
   }
    addUser() {
-    console.log(this.props);
+    console.log(this.props  );
       //this.setState({ users.push()});
    }
 
@@ -30,34 +34,41 @@ export class addGroup extends React.Component {
     return (
         <div>
             <div className="container">
-                <div className="row">   
-                    <div className="col-md-12">
+                <div className="row">
+                    <Col md={12}>
                         <div className="panel panel-default">
                             <div className="panel-heading">
-                                <span className="glyphicon glyphicon-user"></span>    Novo Grupo
+                                <span className="glyphicon glyphicon-user"></span><ControlLabel> Novo Grupo</ControlLabel>
                             </div>
                             <div className="panel-body">
                                 <div className="row">
-                                    <div className="col-xs-6 col-md-6">
+                                    <Col md={6}>
                                         <form>
                                             <div className="form-group">
-                                              <label >Nome do Grupo</label>
-                                              <input type="nome" className="form-control" id="nome" aria-describedby="nome"></input>
+                                                <ControlLabel>Nome do Grupo</ControlLabel>
+                                                <FormControl
+                                                    className={"form-control"}
+                                                    type="nome"
+                                                    placeholder="Sua senha"
+                                                    aria-describedby="none"
+                                                    name="password"
+                                                />
+                                                <FormControl.Feedback />
                                             </div>
                                         </form>
-                                    </div>
-                                    <div className="col-xs-6 col-md-6">                                        
-                                        <label >Selecione um Usuário para vincular ao Grupo</label>
+                                    </Col>
+                                    <Col md={6}>
+                                        <ControlLabel>Selecione um Usuário para vincular ao Grupo</ControlLabel>
                                         <div className="input-group">
                                           <UserSelector handleChange={this.handleSelector} />
                                           <span className="input-group-btn">
-                                            <button onClick={this.addUser} className="btn btn-success" type="button">Inserir</button>
+                                            <Button onClick={this.addUser} className="btn btn-success" type="button">Inserir</Button>
                                           </span>
                                         </div>
-                                    </div>
+                                    </Col>
                                     <div className="panel-body">
                                         <div className="row">
-                                            <div className="col-xs-6 col-md-12">
+                                            <Col md={12}>
                                                 <table className="table table-bordered">
                                                   <thead>
                                                     <tr bgcolor="#ddd">
@@ -68,23 +79,21 @@ export class addGroup extends React.Component {
                                                   </thead>
                                                   <tbody>
                                                     <UserListLine name={"Jarbas"} email={"jarbas@gmail.com"} id={1} />
-
-                                              
                                                   </tbody>
                                                 </table>
-                                            </div>
+                                            </Col>
                                         </div>
                                     </div>
                                 </div>
                                 <hr/>
                                 <Link to="/grupo" title="Voltar" className="btn btn-warning">Voltar</Link>
-                                
+
                                 <div className="pull-right">
                                     <a href="group" className="btn btn-success" data-toggle="tooltip" title="Salvar"> Salvar</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Col>
                 </div>
             </div>
         </div>

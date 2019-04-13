@@ -3,9 +3,9 @@ import { Route, Redirect } from 'react-router-dom';
 import {MainNavbar} from './MainNavbar';
 export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-        localStorage.getItem('user')
+        /*localStorage.getItem('user')
            
-        ?     <div><MainNavbar/><Component {...props} /></div>
-            : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+        ?*/     <div><MainNavbar/><Component {...props} /></div>
+            /*: <Redirect to={{ pathname: '/login', state: { from: props.location } }} />*/
     )} />
 )

@@ -6,10 +6,10 @@ import { userActions } from '../_actions';
 class UserSelector extends React.Component {
 	constructor(props) {
 		super(props);
-		let currentSess = JSON.parse(localStorage.getItem('user'));
+		/*let currentSess = JSON.parse(localStorage.getItem('user'));
 	 	this.state = {
 	 		user:currentSess.user
-	 	};
+	 	};*/
 	 
 		this.props.dispatch(userActions.getAll());
 		this.handleChange = this.handleChange.bind(this);
