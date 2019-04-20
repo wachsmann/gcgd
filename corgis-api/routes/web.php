@@ -12,7 +12,7 @@
 */
 
 $router->group(['prefix'=>'api/v1'], function() use($router){
-$router->get('/user', ['uses' =>'UserController@index']);
+$router->get('/public/user', ['uses' =>'UserController@index']);
 $router->post('/user/create', ['uses' =>'UserController@create']);
 $router->get('/user/{id}', ['uses' =>'UserController@show']);
 $router->put('/user/{id}', ['uses' =>'UserController@update']);

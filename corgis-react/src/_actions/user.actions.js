@@ -83,11 +83,11 @@ function update(user) {
     function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
     function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
 }
-function getAll() {
+function getAll(filter = "") {
     return dispatch => {
         dispatch(request());
 
-        userService.getAll()
+        userService.getAll(filter)
             .then(
                 users => dispatch(success(users)),
                 error => dispatch(failure(error))
@@ -98,6 +98,7 @@ function getAll() {
     function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
+
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
