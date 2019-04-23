@@ -25,22 +25,14 @@ function getById(id) {
     return fetch(urlAppender('/groups') + id, requestOptions).then(handleResponse);
 }
 
-function register(user) {
+function register(group) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(user)
+        headers: authHeader(),
+        body: JSON.stringify(group)
     };
 
-    return fetch(urlAppender('/group'), requestOptions)
-        .then(response => {
-            console.log(response);
-            if (!response.ok) { 
-                return Promise.reject(response.statusText);
-            }
-            console.log(response);
-            return response;
-        });
+    return fetch(urlAppender('/group/create'), requestOptions).then(handleResponse);
 }
 
 function update(user) {

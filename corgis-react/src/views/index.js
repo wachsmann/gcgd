@@ -3,7 +3,7 @@ export * from './Login/LoginView';
 export * from './Register/RegisterView';
 export * from './Profile/ProfileView';
 export * from './Group/GroupView';
-export * from './Group/addGroup';
+export * from './Group/AddGroupView';
 export * from './Group/editGroup';
 export * from './Expense/ExpenseView';
 export * from './Expense/addExpense';
