@@ -4,9 +4,9 @@ import './group.css';
 import UserListLine from "../../_components/Groups/UserListLine";
 import { UserSelector } from "../../_components/UserSelector";
 import Select from 'react-select';
-import { userActions } from '../../_actions';
+import { userActions,groupActions } from '../../_actions';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
+import { Button,FormControl } from 'react-bootstrap';
 
 
 /*
@@ -23,7 +23,8 @@ class AddGroupView extends React.Component {
       usersList: [],
       selectedUser: {},
       selectedOption: null,
-      options: []
+      options: [],
+      groupName:""
     };
     //Get first users 
     this.props.dispatch(userActions.getAll());
@@ -35,12 +36,31 @@ class AddGroupView extends React.Component {
    
     const newList = usersList.concat(selectedOption);
 
-    const patchedState = this.setState({'usersList':[...new Set(newList.map(function(name){return name}))]});
+    this.setState({'usersList':[...new Set(newList.map(function(name){return name}))]});
     
   }
   handleUsersChange = (selectedOption) => {
     this.setState({ selectedOption });
 
+  }
+     
+  handleDelete = (e,id)=>{
+    const { usersList } = this.state; 
+   
+    const newList = usersList.filter(function(user){
+      return user.value != id;
+    });
+    this.setState({"usersList":newList});
+    
+  }
+  saveGroup = () => {
+    const { usersList,groupName } = this.state; 
+    console.log(usersList,groupName)
+    this.props.dispatch(groupActions.register({usersList,groupName})); 
+
+  }
+  handleNameChange = (event) => {
+    this.setState({groupName: event.target.value})
   }
   render() {
     const { selectedOption, usersList } = this.state;
@@ -52,7 +72,7 @@ class AddGroupView extends React.Component {
       return { value: item.id, label: item.name };
     }) : [];
 
-
+    var _this = this;
 
 
     return (
@@ -70,7 +90,7 @@ class AddGroupView extends React.Component {
                       <form>
                         <div className="form-group">
                           <label >Nome do Grupo</label>
-                          <input type="nome" className="form-control" id="nome" aria-describedby="nome"></input>
+                          <FormControl type="text" value={this.state.groupName} onChange={this.handleNameChange.bind(this)} placeholder="Insira o nome do Grupo" />
                         </div>
                       </form>
                     </div>
@@ -101,14 +121,20 @@ class AddGroupView extends React.Component {
                             <thead>
                               <tr bgcolor="#ddd">
                                 <th>Nome</th>
-                                <th>E-mail</th>
+                              
                                 <th>Ações</th>
                               </tr>
                             </thead>
                             <tbody>
                               {
                                 usersList.map(function (user) {
-                                  return <UserListLine name={user.label} email={"jarbas@gmail.com"} key={user.value} />;
+                                  return <UserListLine 
+                                          handleDelete={_this.handleDelete}  
+                                          name={user.label} 
+                                          id={user.value}
+                                          //email={"jarbas@gmail.com"} 
+                                          key={user.value} 
+                                          />;
                                 })
                               }
 
@@ -125,7 +151,8 @@ class AddGroupView extends React.Component {
                   <Link to="/grupo" title="Voltar" className="btn btn-warning">Voltar</Link>
 
                   <div className="pull-right">
-                    <a href="group" className="btn btn-success" data-toggle="tooltip" title="Salvar"> Salvar</a>
+                    <Button onClick={this.saveGroup} className="btn btn-success">Salvar</Button>
+
                   </div>
                 </div>
               </div>
