@@ -54,9 +54,7 @@ class LoginView extends React.Component {
 
                         <form onSubmit={this.handleSubmit}>
 
-                            <FormGroup
-                                className={'form-group' + (submitted && !username ? ' has-error' : '')}
-                                
+                            <FormGroup className={'form-group' + (submitted && !username ? ' has-error' : '')}
                                 //validationState={this.getValidationState()}
                             >
                                 <ControlLabel>E-mail</ControlLabel>
@@ -104,7 +102,7 @@ class LoginView extends React.Component {
 
                             </FormGroup>
                             <div id="buttonSubmit" >
-                                <Button type="submit">Entrar</Button>
+                                <Button type="submit" >Entrar</Button>
                             </div>
                         </form>
                     </Col>

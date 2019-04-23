@@ -4,15 +4,15 @@ import './navbar.css'
 export class MainNavbar extends React.Component {
   constructor(props) {
     super(props);
-    var obj =JSON.parse(localStorage.getItem('user'));
+    /*var obj =JSON.parse(localStorage.getItem('user'));
     this.state = {
       user: obj.user,
       
-    };
+    };*/
   }
   render() {
-    const {user} = this.state;
-    
+    /*const {user} = this.state;
+    */
     return (
         <nav className="navbar navbar-default">
             <div className="navbar-header">
@@ -27,7 +27,7 @@ export class MainNavbar extends React.Component {
             <div id="navbarCollapse" className="collapse navbar-collapse">
                 <ul className="nav navbar-nav navbar-right">
                     
-                    <li><a>Olá, {user.name}</a></li>
+                    <li><a>Olá, {/*{user.name}*/}</a></li>
 
                     
                     <li>
