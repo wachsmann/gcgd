@@ -1,16 +1,17 @@
 import { groupConstants } from '../_constants';
 import { groupService } from '../_services';
-//import { alertActions } from './';
-//import { history } from '../_helpers';
+import { alertActions } from './';
+import { history } from '../_helpers';
 
 export const groupActions = {
 
-    //register,
+    register,
     getAll,
 };
-/*
+
 
 function register(obj) {
+    console.log(obj);
     return dispatch => {
         dispatch(request(obj));
 
@@ -19,7 +20,7 @@ function register(obj) {
                 obj => { 
                     dispatch(success());
                     history.push('/grupo');
-                    //dispatch(alertActions.success('Sucesso!'));
+                    dispatch(alertActions.success('Sucesso!'));
                 },
                 error => {
                     dispatch(failure(error));
@@ -28,11 +29,11 @@ function register(obj) {
             );
     };
 
-    function request(obj) { return { type: userConstants.REGISTER_REQUEST, obj } }
-    function success(obj) { return { type: userConstants.REGISTER_SUCCESS, obj } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+    function request(obj) { return { type: groupConstants.REGISTER_REQUEST, obj } }
+    function success() { return { type: groupConstants.REGISTER_SUCCESS } }
+    function failure(error) { return { type: groupConstants.REGISTER_FAILURE, error } }
 }
-*/
+
 function getAll() {
     return dispatch => {
         dispatch(request());

@@ -13,10 +13,14 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
-     
-     $users = UserModel::all();
+     $where = array();
+     if(isset($request->name)){
+      array_push($where,array('name', 'like', '%'.$request->name.'%'));
+     }
+      
+     $users = UserModel::limit(5)->where($where)->orderBy("name")->get();     
 
      return response()->json($users);
 

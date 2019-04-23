@@ -3,7 +3,7 @@ import { Router, Route } from 'react-router';
 import './App.css';
 import { connect } from 'react-redux';
 import {HomeView, LoginView, RegisterView, ProfileView, GroupView,
-        addGroup, editGroup, ExpenseView, addExpense, editExpense} from './views';
+  AddGroupView, editGroup, ExpenseView, addExpense, editExpense} from './views';
 
 //import {MainNavbar} from './_components';
 import { history } from './_helpers';
@@ -35,7 +35,7 @@ class App extends Component {
           </div>
           <PrivateRoute path="/perfil" component={ProfileView}/>
           <PrivateRoute path="/grupo" component={GroupView}/>
-          <PrivateRoute path="/grupo-novo" component={addGroup}/>
+          <PrivateRoute path="/grupo-novo" component={AddGroupView}/>
           <PrivateRoute path="/grupo-edicao" component={editGroup}/>
           <PrivateRoute path="/despesa" component={ExpenseView}/>
           <PrivateRoute path="/despesa-novo" component={addExpense}/>

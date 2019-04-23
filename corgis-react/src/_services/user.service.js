@@ -43,13 +43,13 @@ function logout() {
     localStorage.removeItem('user');
 }
 
-function getAll() {
+function getAll(filter) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(urlAppender('/public/user'), requestOptions).then(handleResponse);
+    return fetch(urlAppender('/public/user?name='+filter), requestOptions).then(handleResponse);
 }
 
 function getById(id) {
