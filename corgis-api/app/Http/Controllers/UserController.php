@@ -38,6 +38,14 @@ class UserController extends Controller
 
      public function create(Request $request)
      {
+
+         $this->validate($request, [
+            'name' => 'required|alpha_num|max:100',
+            'phone' => 'digits_between:8,11',
+            'email' => 'required|email',
+            'password' => 'required',
+         ]);
+ 
           
         $user = new UserModel;
 
@@ -46,7 +54,7 @@ class UserController extends Controller
         $user->password =  md5($request->input('password'));
         $user->phone = $request->input('phone');
         $user->token = Crypt::encrypt($user->password);
-       $user->save();
+        $user->save();
 
        return response()->json($user);
      }
