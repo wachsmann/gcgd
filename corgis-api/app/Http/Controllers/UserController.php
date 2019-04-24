@@ -28,12 +28,11 @@ class UserController extends Controller
 
      public function login(Request $request)
      {
-        
         $user =  
         UserModel::where('email',$request->input('email'))
         ->where('password',md5($request->input('password')))->select('id','name','token','email','phone')->first();
         
-        if(count($user) > 0){
+        if(!is_null($user)){
             return response()->json(array('token'=>$user->token,'user'=>array('id'=>$user->id,'name'=>$user->name,'email'=>$user->email,'phone'=>$user->phone)));
         }else{
             return response()->json($user);
