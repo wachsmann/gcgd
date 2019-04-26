@@ -101,8 +101,8 @@ class LoginView extends React.Component {
                                 <FormControl.Feedback />
 
                             </FormGroup>
-                            <div id="buttonSubmit" >
-                                <Button type="submit" >Entrar</Button>
+                            <div className="buttonSubmit">
+                                <Button type="submit">Entrar</Button>
                             </div>
                         </form>
                     </Col>
