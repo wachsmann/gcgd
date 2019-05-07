@@ -28,7 +28,7 @@ function getById(id) {
 function register(group) {
     const requestOptions = {
         method: 'POST',
-        headers: authHeader(),
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(group)
     };
 

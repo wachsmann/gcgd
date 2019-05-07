@@ -39,16 +39,7 @@ class GroupView extends React.Component {
                                             </tr>
                                           </thead>
                                           <tbody>
-                                          {list && list.map((result, i) =>
-                                            <tr key={result.id}><td>{result.name}</td>
-                                            <td>{i}</td>
-                                            <td>
-                                                <a id={result.users.length} data-toggle='tooltip' title='Visualizar'><i className='btn btn-danger glyphicon glyphicon-remove'></i> </a>
-                                                <a id={result.users.length}  data-toggle='tooltip' title='Visualizar'><i  className='btn btn-primary glyphicon glyphicon-pencil'></i> </a>
-                                              </td></tr>
-                                            )}
-                                         
-                                            
+                                                                    
                                           </tbody>
                                         </table>
                                     </div>

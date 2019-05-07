@@ -15,6 +15,7 @@ class CreateCollectiveTable extends Migration
     {
         Schema::create('collective', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
