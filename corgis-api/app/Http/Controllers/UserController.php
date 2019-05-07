@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -39,21 +40,24 @@ class UserController extends Controller
         }
      }
 
-     public function create(Request $request)
-     {
-          
-        $user = new UserModel;
+      public function create(Request $request)
+      {
 
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password =  md5($request->input('password'));
-        $user->phone = $request->input('phone');
-        $user->token = Crypt::encrypt($user->password);
-       $user->save();
+         $this->validate($request,UserModel::$rules);    
+         
+         $user = new UserModel;
 
-       return response()->json($user);
-     }
+         $user->name = $request->input('name');
+         $user->email = $request->input('email');
+         $user->password =  md5($request->input('password'));
+         $user->phone = $request->input('phone');
+         $user->token = Crypt::encrypt($user->password);
+         $user->save();
 
+         return response()->json($user);
+      }
+
+    
      public function show($id)
      {
         $user = UserModel::find($id);
