@@ -14,8 +14,15 @@ class CreateCollectiveUserTable extends Migration
     public function up()
     {
         Schema::create('collective_user', function (Blueprint $table) {
-            $table->increments('id');
             $table->timestamps();
+            $table->increments('id');
+            $table->integer('user_model_id')->unsigned()->nullable();
+            $table->integer('collective_model_id')->unsigned()->nullable();
+            
+        });
+        Schema::table('collective_user', function($table) {
+            $table->foreign('user_model_id')->references('id')->on('user');
+            $table->foreign('collective_model_id')->references('id')->on('collective');
         });
     }
 

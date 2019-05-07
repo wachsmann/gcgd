@@ -24,8 +24,8 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     /*
     *  GROUP
     */
-    $router->get('/group', ['uses' =>'GroupController@index']);
-    $router->post('/group/create', ['uses' =>'GroupController@create']);
+    $router->get('/private/collective', ['uses' =>'CollectiveController@getAll']);
+    $router->post('/group/create', ['uses' =>'CollectiveController@create']);
     
 
     
@@ -35,7 +35,7 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-
+$router->get('/teste',['uses' =>'CollectiveController@index']);
 $router->get('/key', function() {
     return str_random(32);
 });
