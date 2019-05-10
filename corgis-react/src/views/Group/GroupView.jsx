@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { groupActions } from '../../_actions';
+import GroupListLine from "../../_components/Groups/GroupListLine";
 import './group.css'
 import { Link } from 'react-router-dom';
 
@@ -12,9 +13,19 @@ class GroupView extends React.Component {
 
     this.props.dispatch(groupActions.getAll());
   }
+  handleDelete = (e,id)=>{
+   /*
+    const { usersList } = this.state; 
+   
+    const newList = usersList.filter(function(user){
+      return user.value != id;
+    });
+    this.setState({"usersList":newList});
+    */
+  }
   render() {
     const { list } = this.props;
-   
+    var _this = this;
     return (
         <div>
             <div className="container">
@@ -39,7 +50,17 @@ class GroupView extends React.Component {
                                             </tr>
                                           </thead>
                                           <tbody>
-                                                                    
+                                          {
+                                            list && list.map(function (group) {
+                                              return <GroupListLine 
+                                                      handleDelete={_this.handleDelete}  
+                                                      name={group.name} 
+                                                      id={group.id}
+                                                      qtd={group.users.length} 
+                                                      key={group.id} 
+                                                      />;
+                                            })
+                                          }
                                           </tbody>
                                         </table>
                                     </div>
