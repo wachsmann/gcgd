@@ -29,7 +29,7 @@ class CollectiveController extends Controller
      }
      public function getAll(Request $request){
       //get user id 
-      $collectives = CollectiveModel::orderBy("name")->get();     
+      $collectives = CollectiveModel::with("users")->orderBy("name")->get();     
 
       return response()->json($collectives);
      }

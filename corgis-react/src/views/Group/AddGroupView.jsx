@@ -34,9 +34,23 @@ class AddGroupView extends React.Component {
   addUser = () => {
     const { selectedOption, usersList } = this.state; 
    
-    const newList = usersList.concat(selectedOption);
-
-    this.setState({'usersList':[...new Set(newList.map(function(name){return name}))]});
+    
+    var existOnList = false;
+    usersList.forEach(function(item){
+      if(selectedOption.value == item.value){
+        existOnList = true;
+        
+      }
+        
+    });
+    if(!existOnList){
+      const newList = usersList.concat(selectedOption);
+      this.setState({'usersList':newList});
+    }else{
+      this.setState({'usersList':usersList});
+    }
+      
+    
     
   }
   handleUsersChange = (selectedOption) => {
@@ -151,7 +165,10 @@ class AddGroupView extends React.Component {
                   <Link to="/grupo" title="Voltar" className="btn btn-warning">Voltar</Link>
 
                   <div className="pull-right">
-                    <Button onClick={this.saveGroup} className="btn btn-success">Salvar</Button>
+                    { this.state.groupName.length > 3 && this.state.usersList.length > 0 ? 
+                      <Button onClick={this.saveGroup} className="btn btn-success">Salvar</Button> :
+                      <Button onClick={this.saveGroup} disabled className="btn btn-success">Salvar</Button>
+                    }
 
                   </div>
                 </div>
