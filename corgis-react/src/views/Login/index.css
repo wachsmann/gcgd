@@ -64,7 +64,13 @@ h1{
   color: black;
 }
 #buttonSubmit{
-  text-align: center;
+  float: left;
+}
+.buttonRegister{
+  float: right; 
+}
+.fix {
+  overflow: auto;
 }
 .login-box input[type="text"], input[type="password"]
 {
@@ -92,7 +98,10 @@ h1{
   background: #39dc79;
   color: #000;
 }
-
+/**
+* não sei se essas regras são utilizadas em algum lugar, estavam dando problema com o link pra rota do cadastro, então
+* comentei essa parte, como não vi diferença imagino que não estavam sendo utilizadas para nada;
+*
 .login-box a{
   text-decoration: none;
   font-size: 14px;
@@ -102,6 +111,8 @@ h1{
 {
   color: #39dc79;
 }
+
+*/
 .btn-login {
   padding: 1rem 1.5rem;
   font-size: 1.5rem;

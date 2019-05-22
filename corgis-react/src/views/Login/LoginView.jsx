@@ -2,6 +2,7 @@ import React from 'react';
 import {Col,FormControl,FormGroup,ControlLabel, Button} from 'react-bootstrap';
  
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { userActions } from '../../_actions';
 import './index.css'
@@ -76,7 +77,6 @@ class LoginView extends React.Component {
                                 <FormControl.Feedback />
 
                             </FormGroup>
-
                             <FormGroup
                                 className={'form-group' + (submitted && !password ? ' has-error' : '')}
                                 controlId="formPassword"
@@ -105,6 +105,9 @@ class LoginView extends React.Component {
                                 <Button type="submit" >Entrar</Button>
                             </div>
                         </form>
+                        <div className="buttonRegister">
+                          <Link className="btn btn-default" to="/cadastro">Cadastrar-se</Link>
+                        </div>
                     </Col>
                 </div>
 
