@@ -15,7 +15,16 @@ class CreateParcelTable extends Migration
     {
         Schema::create('parcel', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('status');
+            $table->dateTime('validity');
+            $table->double('value',8,2);
+            $table->integer('expense_model_id')->unsigned()->nullable();
+            $table->integer('user_model_id')->unsigned()->nullable();
             $table->timestamps();
+        });
+        Schema::table('parcel', function($table) {
+            $table->foreign('expense_model_id')->references('id')->on('expense');
+            $table->foreign('user_model_id')->references('id')->on('user');
         });
     }
 

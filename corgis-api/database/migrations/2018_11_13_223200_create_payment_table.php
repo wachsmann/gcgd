@@ -16,6 +16,13 @@ class CreatePaymentTable extends Migration
         Schema::create('payment', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->dateTime('paid_at');
+            $table->integer('status');
+            $table->double('value',8,2);
+            $table->integer('parcel_model_id')->unsigned()->nullable();
+        });
+        Schema::table('payment', function($table) {
+            $table->foreign('parcel_model_id')->references('id')->on('parcel');
         });
     }
 

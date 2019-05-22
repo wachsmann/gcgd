@@ -15,7 +15,22 @@ class CreateExpenseTable extends Migration
     {
         Schema::create('expense', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('description');
+            $table->double('total',8,2);
+            $table->dateTime('validity');
+
+            $table->integer('collective_model_id')->unsigned()->nullable();
+            $table->integer('expense_type_model_id')->unsigned()->nullable();
+            $table->integer('user_model_id')->unsigned()->nullable();
+            
+            
             $table->timestamps();
+        });
+        Schema::table('expense', function($table) {
+            $table->foreign('collective_model_id')->references('id')->on('collective');
+            $table->foreign('expense_type_model_id')->references('id')->on('expense_type');
+            $table->foreign('user_model_id')->references('id')->on('user');
         });
     }
 
