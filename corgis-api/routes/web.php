@@ -26,9 +26,8 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     */
     $router->get('/private/collective', ['uses' =>'CollectiveController@getAll']);
     $router->post('/group/create', ['uses' =>'CollectiveController@create']);
-    
-
-    
+    $router->delete('/group/{id}', ['uses' =>'CollectiveController@destroy']);
+    $router->get('/group/{id}', ['uses' =>'CollectiveController@getById']);
 
 });
 

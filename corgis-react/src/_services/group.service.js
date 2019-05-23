@@ -2,9 +2,11 @@ import { authHeader,urlAppender } from '../_helpers';
 
 export const groupService = {
     register,
+    updateGroup,
     getAll,
     getById,
     update,
+    _delete,
 };
 
 function getAll() {
@@ -21,8 +23,7 @@ function getById(id) {
         method: 'GET',
         headers: authHeader()
     };
-
-    return fetch(urlAppender('/groups') + id, requestOptions).then(handleResponse);
+    return fetch(urlAppender('/group/' + id), requestOptions).then(handleResponse);
 }
 
 function register(group) {
@@ -33,6 +34,16 @@ function register(group) {
     };
 
     return fetch(urlAppender('/group/create'), requestOptions).then(handleResponse);
+}
+
+function updateGroup(group) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(group)
+    };
+    console.log(group);
+    //return fetch(urlAppender('/group/update'), requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -59,4 +70,13 @@ function handleResponse(response) {
     }
     
     return response.json();
+}
+
+function _delete(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(urlAppender('/group/' + id), requestOptions).then(handleResponse);
 }

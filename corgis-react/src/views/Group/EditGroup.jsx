@@ -1,21 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './group.css';
-import UserListLine from "../../_components/Groups/UserListLine";
-import {UserSelector} from "../../_components/UserSelector";
-import Select from 'react-select';
-import {userActions, groupActions} from '../../_actions';
 import {connect} from 'react-redux';
-import {Button, FormControl} from 'react-bootstrap';
+import './group.css'
+import {Button, Col, ControlLabel, FormControl} from "react-bootstrap";
+import {UserSelector} from "../../_components/UserSelector";
+import {groupActions, userActions} from "../../_actions";
+import GroupListLine from "../../_components/Groups/GroupListLine";
+import UserListLine from "../../_components/Groups/UserListLine";
+import Select from 'react-select';
 
-
-/*
-*
-* VIEW COMP. 
-*   Display create view for new group creation
-*/
-class AddGroupView extends React.Component {
-
+class editGroup extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,16 +18,17 @@ class AddGroupView extends React.Component {
             selectedUser: {},
             selectedOption: null,
             options: [],
-            groupName: ""
+            groupName: "",
+            groupID: null
         };
+
+        this.props.dispatch(groupActions.getById(6));
         //Get first users
         this.props.dispatch(userActions.getAll());
-
     }
 
     addUser = () => {
         const {selectedOption, usersList} = this.state;
-
 
         var existOnList = false;
         usersList.forEach(function (item) {
@@ -41,22 +36,19 @@ class AddGroupView extends React.Component {
                 existOnList = true;
 
             }
-
         });
+
         if (!existOnList) {
             const newList = usersList.concat(selectedOption);
             this.setState({'usersList': newList});
         } else {
             this.setState({'usersList': usersList});
         }
-
-
     }
     handleUsersChange = (selectedOption) => {
         this.setState({selectedOption});
 
     }
-
     handleDelete = (e, id) => {
         const {usersList} = this.state;
 
@@ -67,10 +59,8 @@ class AddGroupView extends React.Component {
 
     }
     saveGroup = () => {
-        const {usersList, groupName} = this.state;
-        console.log(usersList, groupName)
-        this.props.dispatch(groupActions.register({usersList, groupName}));
-
+        const {usersList, groupName, groupID} = this.state;
+        this.props.dispatch(groupActions.update({usersList, groupName, groupID}));
     }
     handleNameChange = (event) => {
         this.setState({groupName: event.target.value})
@@ -78,40 +68,41 @@ class AddGroupView extends React.Component {
 
     render() {
         const {selectedOption, usersList} = this.state;
-        const {users} = this.props;
-
+        const {group, users} = this.props;
 
         const options = typeof users.items != "undefined" ? users.items.map(function (item) {
-
             return {value: item.id, label: item.name};
         }) : [];
 
         var _this = this;
 
-
         return (
             <div>
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-12">
+                        <Col md={12}>
                             <div className="panel panel-default">
                                 <div className="panel-heading">
-                                    <span className="glyphicon glyphicon-user"></span> Novo Grupo
+                                    <span className="glyphicon glyphicon-user"></span><ControlLabel> Editar Grupo
+                                    - {group && group.name}
+                                </ControlLabel>
                                 </div>
                                 <div className="panel-body">
                                     <div className="row">
-                                        <div className="col-xs-6 col-md-6">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label>Nome do Grupo</label>
-                                                    <FormControl type="text" value={this.state.groupName}
-                                                                 onChange={this.handleNameChange.bind(this)}
-                                                                 placeholder="Insira o nome do Grupo"/>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div className="col-xs-6 col-md-6">
-                                            <label>Selecione um Usuário para vincular ao Grupo</label>
+                                        <Col md={6}>
+                                            <div className="form-group">
+                                                <ControlLabel>Nome do Grupo</ControlLabel>
+                                                <FormControl
+                                                    className={"form-control"}
+                                                    type="text"
+                                                    value={group && group.name}
+                                                    onChange={this.handleNameChange.bind(this)}
+                                                    placeholder="Insira o nome do Grupo"
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col md={6}>
+                                            <ControlLabel>Selecione um Usuário para vincular ao Grupo</ControlLabel>
                                             <div className="col-xs-10 col-md-10">
 
                                                 <Select
@@ -122,17 +113,15 @@ class AddGroupView extends React.Component {
                                                 />
                                             </div>
                                             <div className="col-xs-2 col-md-2">
-                        <span className="input-group-btn">
-
-                          <Button onClick={this.addUser} className="btn btn-success">Inserir</Button>
-                        </span>
+                                            <span className="input-group-btn">
+                                                <Button onClick={this.addUser}
+                                                        className="btn btn-success">Inserir</Button>
+                                            </span>
                                             </div>
-
-                                        </div>
-
+                                        </Col>
                                         <div className="panel-body">
                                             <div className="row">
-                                                <div className="col-xs-6 col-md-12">
+                                                <Col md={12}>
                                                     <table className="table table-bordered">
                                                         <thead>
                                                         <tr bgcolor="#ddd">
@@ -142,7 +131,7 @@ class AddGroupView extends React.Component {
                                                         </thead>
                                                         <tbody>
                                                         {
-                                                            usersList.map(function (user) {
+                                                            this.state.usersList && this.state.usersList.map(function (user) {
                                                                 return <UserListLine
                                                                     handleDelete={_this.handleDelete}
                                                                     name={user.label}
@@ -152,11 +141,9 @@ class AddGroupView extends React.Component {
                                                                 />;
                                                             })
                                                         }
-
-
                                                         </tbody>
                                                     </table>
-                                                </div>
+                                                </Col>
                                             </div>
                                         </div>
                                     </div>
@@ -170,11 +157,10 @@ class AddGroupView extends React.Component {
                                             <Button onClick={this.saveGroup} disabled
                                                     className="btn btn-success">Salvar</Button>
                                         }
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Col>
                     </div>
                 </div>
             </div>
@@ -183,16 +169,17 @@ class AddGroupView extends React.Component {
 }
 
 /*
-*  REDUX CONNECTOR  
+*  REDUX CONNECTOR
 */
 function mapStateToProps(state) {
-
+    const {group} = state.groups;
     const {users} = state;
-    console.log(users, "users")
+
     return {
+        group,
         users
     };
 }
 
-const connectedAddGroupView = connect(mapStateToProps)(AddGroupView);
-export {connectedAddGroupView as AddGroupView};
+const connectedEditGroup = connect(mapStateToProps)(editGroup);
+export {connectedEditGroup as editGroup};

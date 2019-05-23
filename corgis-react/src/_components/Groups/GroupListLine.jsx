@@ -7,10 +7,15 @@ export default class GroupListLine extends React.Component {
 		super(props);
 		
 		this.handleDelete = this.handleDelete.bind(this);
+		this.handleEdit = this.handleEdit.bind(this);
 	}
 	handleDelete = (event,id)=>{
 		event.stopPropagation();
 		this.props.handleDelete(event,id);
+	}
+	handleEdit = (event,id)=>{
+		event.stopPropagation();
+		this.props.handleEdit(event,id);
 	}
 	render() {
 		return (
@@ -23,7 +28,7 @@ export default class GroupListLine extends React.Component {
                     <Button variant="danger"   id={this.props.id} onClick={event => this.handleDelete(event, this.props.id)}  variant="danger" data-toggle="tooltip" title="Visualizar">
 						<i className="glyphicon glyphicon-remove"></i> 
 					</Button>
-					<Button  variant="warning" id={this.props.id} onClick={event => this.handleDelete(event, this.props.id)} data-toggle="tooltip" title="Visualizar">
+					<Button  variant="warning" id={this.props.id} onClick={event => this.handleEdit(event, this.props.id)} data-toggle="tooltip" title="Editar">
 						<i className="glyphicon glyphicon-pencil"></i>
 					</Button>
                 </ButtonToolbar>
