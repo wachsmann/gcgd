@@ -26,9 +26,24 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     */
     $router->get('/private/collective', ['uses' =>'CollectiveController@getAll']);
     $router->post('/group/create', ['uses' =>'CollectiveController@create']);
-    
 
-    
+    /**
+     *  EXPENSE
+     */
+    $router->post('/expense/create', ['uses' =>'ExpenseController@create']);
+
+    /**
+     *  PARCEL
+     */
+
+    $router->post('/parcel/create', ['uses' =>'ParcelController@create']);
+
+    /**
+     * PAYMENT
+     */
+
+    $router->post('/payment/create', ['uses' =>'PaymentController@create']);
+    $router->post('/payment/setStatus', ['uses' =>'PaymentController@setStatus']);
 
 });
 
