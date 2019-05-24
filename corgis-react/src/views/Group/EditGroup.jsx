@@ -22,7 +22,7 @@ class editGroup extends React.Component {
             groupID: null
         };
 
-        this.props.dispatch(groupActions.getById(6));
+
         //Get first users
         this.props.dispatch(userActions.getAll());
     }

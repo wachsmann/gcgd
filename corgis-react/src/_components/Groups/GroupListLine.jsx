@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import {history} from "../../_helpers";
+import {groupActions} from "../../_actions";
 
+import {connect} from 'react-redux';
 
-export default class GroupListLine extends React.Component {
+class GroupListLine extends React.Component {
 	constructor(props) {
 		super(props);
 		
@@ -12,10 +15,14 @@ export default class GroupListLine extends React.Component {
 	handleDelete = (event,id)=>{
 		event.stopPropagation();
 		this.props.handleDelete(event,id);
+
 	}
 	handleEdit = (event,id)=>{
 		event.stopPropagation();
-		this.props.handleEdit(event,id);
+		const {dispatch} = this.props;
+
+		this.props.dispatch(groupActions.getById(id));
+		history.push('/grupo-edicao/'+id);
 	}
 	render() {
 		return (
@@ -37,4 +44,8 @@ export default class GroupListLine extends React.Component {
 		);
 	}
 }
-
+function mapStateToProps(state) {
+	return {};
+}
+const connectedGroupListLine = connect()(GroupListLine);
+export {connectedGroupListLine as GroupListLine};

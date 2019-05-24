@@ -3,9 +3,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {groupActions, userActions} from '../../_actions';
-import GroupListLine from "../../_components/Groups/GroupListLine";
+import {GroupListLine} from "../../_components/Groups/GroupListLine";
 import './group.css'
 import {Link} from 'react-router-dom';
+import {history} from "../../_helpers";
 
 class GroupView extends React.Component {
     constructor(props) {
@@ -22,7 +23,9 @@ class GroupView extends React.Component {
         });*/
         const {dispatch} = this.props;
         dispatch(groupActions.delete(id));
+
         /*this.setState({"usersList": newList});*/
+
     }
 
     render() {

@@ -131,8 +131,11 @@ function _delete(id) {
         dispatch(request(id));
 
         groupService._delete(id)
-            .then(
-                list => dispatch(success(list)),
+            .then(function(list){
+                    dispatch(success(list));
+                    dispatch(getAll());
+            },
+                //list => dispatch(success(list)),
                 error => dispatch(failure(error))
             );
     };
@@ -142,6 +145,7 @@ function _delete(id) {
     }
 
     function success() {
+
         return {type: groupConstants.DELETE_SUCCESS}
     }
 
