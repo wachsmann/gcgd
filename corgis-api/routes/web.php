@@ -44,6 +44,8 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
 
     $router->post('/payment/create', ['uses' =>'PaymentController@create']);
     $router->post('/payment/setStatus', ['uses' =>'PaymentController@setStatus']);
+    $router->delete('/group/{id}', ['uses' =>'CollectiveController@destroy']);
+    $router->get('/group/{id}', ['uses' =>'CollectiveController@getById']);
 
 });
 
