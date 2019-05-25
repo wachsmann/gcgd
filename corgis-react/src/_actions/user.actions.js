@@ -1,7 +1,7 @@
-import { userConstants } from '../_constants';
-import { userService } from '../_services';
-import { alertActions } from './';
-import { history } from '../_helpers';
+import {userConstants} from '../_constants';
+import {userService} from '../_services';
+import {alertActions} from './';
+import {history} from '../_helpers';
 
 export const userActions = {
     login,
@@ -14,12 +14,12 @@ export const userActions = {
 
 function login(username, password) {
     return dispatch => {
-        dispatch(request({ username }));
-        
-       
+        dispatch(request({username}));
+
+
         userService.login(username, password)
             .then(
-                obj => { 
+                obj => {
                     dispatch(success(obj.user));
                     history.push('/');
                 },
@@ -27,17 +27,25 @@ function login(username, password) {
                     dispatch(failure(error));
                     dispatch(alertActions.error("E-mail ou senha incorretos!"));
                 }
-        );
+            );
     };
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+    function request(user) {
+        return {type: userConstants.LOGIN_REQUEST, user}
+    }
+
+    function success(user) {
+        return {type: userConstants.LOGIN_SUCCESS, user}
+    }
+
+    function failure(error) {
+        return {type: userConstants.LOGIN_FAILURE, error}
+    }
 }
 
 function logout() {
     userService.logout();
-    return { type: userConstants.LOGOUT };
+    return {type: userConstants.LOGOUT};
 }
 
 function register(user) {
@@ -46,7 +54,7 @@ function register(user) {
 
         userService.register(user)
             .then(
-                user => { 
+                user => {
                     dispatch(success());
                     history.push('/login');
                     dispatch(alertActions.success('Sucesso!'));
@@ -58,17 +66,26 @@ function register(user) {
             );
     };
 
-    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+    function request(user) {
+        return {type: userConstants.REGISTER_REQUEST, user}
+    }
+
+    function success(user) {
+        return {type: userConstants.REGISTER_SUCCESS, user}
+    }
+
+    function failure(error) {
+        return {type: userConstants.REGISTER_FAILURE, error}
+    }
 }
+
 function update(user) {
     return dispatch => {
         dispatch(request(user));
 
         userService.update(user)
             .then(
-                user => { 
+                user => {
                     dispatch(success());
                     dispatch(alertActions.success('Sucesso!'));
                 },
@@ -79,10 +96,19 @@ function update(user) {
             );
     };
 
-    function request(user) { return { type: userConstants.UPDATE_REQUEST, user } }
-    function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
+    function request(user) {
+        return {type: userConstants.UPDATE_REQUEST, user}
+    }
+
+    function success(user) {
+        return {type: userConstants.UPDATE_SUCCESS, user}
+    }
+
+    function failure(error) {
+        return {type: userConstants.UPDATE_FAILURE, error}
+    }
 }
+
 function getAll(filter = "") {
     return dispatch => {
         dispatch(request());
@@ -94,9 +120,17 @@ function getAll(filter = "") {
             );
     };
 
-    function request() { return { type: userConstants.GETALL_REQUEST } }
-    function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
-    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+    function request() {
+        return {type: userConstants.GETALL_REQUEST}
+    }
+
+    function success(users) {
+        return {type: userConstants.GETALL_SUCCESS, users}
+    }
+
+    function failure(error) {
+        return {type: userConstants.GETALL_FAILURE, error}
+    }
 }
 
 
@@ -107,7 +141,7 @@ function _delete(id) {
 
         userService.delete(id)
             .then(
-                user => { 
+                user => {
                     history.push('/login');
                     dispatch(success(id));
                 },
@@ -117,8 +151,15 @@ function _delete(id) {
             );
     };
 
-    function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
-       
-    function success() { return { type: userConstants.DELETE_SUCCESS} }
-    function failure(error) { return { type: userConstants.DELETE_FAILURE, error } }
+    function request(id) {
+        return {type: userConstants.DELETE_REQUEST, id}
+    }
+
+    function success() {
+        return {type: userConstants.DELETE_SUCCESS}
+    }
+
+    function failure(error) {
+        return {type: userConstants.DELETE_FAILURE, error}
+    }
 }
