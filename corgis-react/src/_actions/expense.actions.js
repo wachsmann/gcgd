@@ -7,6 +7,7 @@ export const expenseActions = {
 
     //register,
     getAll,
+    getAllCategory,
 };
 /*
 
@@ -47,4 +48,20 @@ function getAll() {
     function request() { return { type: expenseConstants.GETALL_REQUEST } }
     function success(list) { return { type: expenseConstants.GETALL_SUCCESS, list } }
     function failure(error) { return { type: expenseConstants.GETALL_FAILURE, error } }
+}
+
+function getAllCategory() {
+    return dispatch => {
+        dispatch(request());
+
+        expenseService.getAllCategory()
+            .then(
+                categories => dispatch(success(categories)),
+                error => dispatch(failure(error))
+            );
+    };
+
+    function request() { return { type: expenseConstants.GETALLCATEGORY_REQUEST } }
+    function success(categories) { return { type: expenseConstants.GETALLCATEGORY_SUCCESS, categories } }
+    function failure(error) { return { type: expenseConstants.GETALLCATEGORY_FAILURE, error } }
 }

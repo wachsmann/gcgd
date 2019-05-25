@@ -46,7 +46,10 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     $router->post('/payment/setStatus', ['uses' =>'PaymentController@setStatus']);
     $router->delete('/group/{id}', ['uses' =>'CollectiveController@destroy']);
     $router->get('/group/{id}', ['uses' =>'CollectiveController@getById']);
-
+    /*
+     * Expense
+     */
+    $router->get('/expense/getAllCategory', ['uses' =>'ExpenseController@getAllCategory']);
 });
 
 $router->get('/', function () use ($router) {

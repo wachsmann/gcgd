@@ -3,7 +3,7 @@ import { authHeader,urlAppender } from '../_helpers';
 export const expenseService = {
    
     getAll,
-
+    getAllCategory,
 };
 
 function getAll() {
@@ -15,7 +15,14 @@ function getAll() {
     return fetch(urlAppender('/private/expense'), requestOptions).then(handleResponse);
 }
 
+function getAllCategory() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
 
+    return fetch(urlAppender('/expense/getAllCategory'), requestOptions).then(handleResponse);
+}
 
 function handleResponse(response) {
     if (!response.ok) { 
