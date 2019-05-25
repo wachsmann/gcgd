@@ -14,6 +14,22 @@ export function users(state = {}, action) {
       return { 
         error: action.error
       };
+
+
+    case userConstants.GROUPS_REQUEST:
+      return {
+      
+      };
+    case userConstants.GROUPS_SUCCESS:
+      
+      return {
+        groups:action.groups
+      };
+    case userConstants.GROUPS_FAILURE:
+        return { 
+          error: action.error
+        };
+
     case userConstants.DELETE_REQUEST:
     return {
         loading: true

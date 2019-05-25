@@ -14,8 +14,11 @@ class addExpense extends React.Component {
         super(props);
 
         this.state = {
-            usersList: [],
+            groupList: [],
             selectedOption: null,
+            selectedQtts: null,
+            selectedGroupOption:null,
+            usersGroups:[],
             selectedCategory: null,
             options: [],
             expenseName: "",
@@ -24,9 +27,12 @@ class addExpense extends React.Component {
             expenseExpirationDate: "",
         };
 
+        var currentUser = JSON.parse(localStorage.getItem('user'))
         //Get first users
         this.props.dispatch(userActions.getAll());
-
+        
+        //Get groups related to current user
+        this.props.dispatch(userActions.getGroups(currentUser.user.id));
         // Get Category
         this.props.dispatch(expenseActions.getAllCategory());
     }
@@ -52,8 +58,17 @@ class addExpense extends React.Component {
 
 
     }
-    handleUsersChange = (selectedOption) => {
-        this.setState({selectedOption});
+    saveExpense = () => {
+        console.log(this.state)
+       
+        
+
+    }
+    handleUsersChange = (selectedGroupOption) => {
+        console.log(selectedGroupOption,"selectedGroup")
+        //populate table with group users
+        this.setState({selectedGroupOption});
+        
 
     }
 
@@ -81,68 +96,76 @@ class addExpense extends React.Component {
     handleExpenseCategoryChange = (selectedCategory) => {
         this.setState({selectedCategory});
     }
+    handleParcelQtt = (selectedQtts) =>{
+        this.setState({selectedQtts});
+    }
 
     render() {
-        const {selectedCategory, selectedOption, usersList} = this.state;
+        const {selectedCategory, selectedOption} = this.state;
         const {users, categories} = this.props;
+        const groups = typeof users.groups != "undefined" ? users.groups : [];
+        const options = typeof users.groups != "undefined" ? users.groups.map(function (item) {
 
-        const options = typeof users.items != "undefined" ? users.items.map(function (item) {
-
-            return {value: item.id, label: item.name};
+            return {value: item.id, label: item.name,users:item.users};
         }) : [];
 
         const options_categories = typeof categories != "undefined" ? categories.map(function (item) {
 
             return {value: item.id, label: item.name};
         }) : [];
-
+        var options_qtts = [];
+        for (let index = 0; index < 12; index++) {
+            options_qtts[index] = {value: index+1, label:index+1};
+            
+        }
+       
         var _this = this;
 
-        const value_expense  = typeof this.state.expenseValue != "undefined" ? this.state.expenseValue / this.state.usersList.length : "Sem Valor";
+        const value_expense  = typeof this.state.expenseValue != "undefined" ? this.state.expenseValue / groups.length : "Sem Valor";
 
         return (
             <div>
-                <div class="container">
-                    <div class="row">
+                <div className="container">
+                    <div className="row">
                         <Col md={12}>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-retweet"></span>
+                            <div className="panel panel-default">
+                                <div className="panel-heading">
+                                    <span className="glyphicon glyphicon-retweet"></span>
                                     <ControlLabel>Cadastrar Despesas</ControlLabel>
                                 </div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="box-body">
+                                <div className="panel-body">
+                                    <div className="row">
+                                        <div className="box-body">
                                             <Col md={3}>
-                                                <div class="form-group">
+                                                <div className="form-group">
                                                     <ControlLabel>Nome da Despesa</ControlLabel>
                                                     <FormControl type="text" value={this.state.expenseName}
                                                                  onChange={this.handleExpenseNameChange.bind(this)}/>
                                                 </div>
                                             </Col>
                                             <Col md={3}>
-                                                <div class="form-group">
+                                                <div className="form-group">
                                                     <ControlLabel>Descrição</ControlLabel>
                                                     <FormControl type="text" value={this.state.expenseDescription}
                                                                  onChange={this.handleExpenseDescriptionChange.bind(this)}/>
                                                 </div>
                                             </Col>
                                             <Col md={3}>
-                                                <div class="form-group">
+                                                <div className="form-group">
                                                     <ControlLabel>Valor</ControlLabel>
                                                     <FormControl type="text" value={this.state.expenseValue}
                                                                  onChange={this.handleExpenseValueChange.bind(this)}/>
                                                 </div>
                                             </Col>
                                             <Col md={3}>
-                                                <div class="form-group">
+                                                <div className="form-group">
                                                     <ControlLabel>Data de Validade</ControlLabel>
                                                     <FormControl type="date" value={this.state.expenseExpirationDate}
                                                                  onChange={this.handleExpenseExpirationDateChange.bind(this)}/>
                                                 </div>
                                             </Col>
                                         </div>
-                                        <div class="box-body">
+                                        <div className="box-body">
                                             <Col md={3}>
                                                 <ControlLabel>Categoria</ControlLabel>
                                                 <Select
@@ -153,54 +176,46 @@ class addExpense extends React.Component {
                                             </Col>
                                             <Col md={3}>
                                                 <ControlLabel>Quantidades de Parcelas</ControlLabel>
-                                                <select id="inputState" class="form-control">
-                                                    <option selected>Todos</option>
-                                                    <option>...</option>
-                                                </select>
+                                                <Select
+                                                    value={this.selectedQtts}
+                                                    onChange={this.handleParcelQtt}
+                                                    options={options_qtts}
+                                                />
                                             </Col>
                                             <Col md={6}>
-                                                <ControlLabel>Selecione um Usuário do Grupo para vincular há Despesa</ControlLabel>
+                                                <ControlLabel>Selecione um Grupo para vincular a Despesa</ControlLabel>
                                                 <Col md={10}>
                                                     <Select
-                                                        value={selectedOption}
+                                                        value={this.state.selectedGroupOption}
                                                         onChange={this.handleUsersChange}
                                                         options={options}
                                                         placeholder={"Selecione um usuário"}
                                                     />
                                                 </Col>
-                                                <Col md={2}>
-                                                    <span className="input-group-btn">
-                                                    {this.state.expenseValue > 0 ?
-                                                        <Button onClick={this.addUser}
-                                                                className="btn btn-success">Inserir</Button> :
-                                                        <Button onClick={this.addUser} disabled
-                                                                className="btn btn-success">Inserir</Button>
-                                                    }
-                                                    </span>
-                                                </Col>
+                                              
                                             </Col>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel-body">
-                                    <div class="row">
+                                <div className="panel-body">
+                                    <div className="row">
                                         <Col md={12}>
-                                            <table class="table table-bordered">
+                                            <table className="table table-bordered">
                                                 <thead>
                                                 <tr bgcolor="#ddd">
                                                     <th>Colaborador</th>
                                                     <th>Valor</th>
-                                                    <th>Ações</th>
+                                                    
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 {
-                                                    this.state.usersList && this.state.usersList.map(function (user) {
+                                                    this.state.selectedGroupOption && this.state.selectedGroupOption.users.map(function (user) {
                                                         return <ExpenseListLine
                                                             handleDelete={_this.handleDelete}
-                                                            name={user.label}
+                                                            name={user.name}
                                                             value={value_expense}
-                                                            id={user.value}
+                                                            id={user.id}
                                                             //email={"jarbas@gmail.com"}
                                                             key={user.value}
                                                         />;
@@ -213,7 +228,16 @@ class addExpense extends React.Component {
                                     <hr/>
                                     <Link to="/despesa" className="btn btn-warning" title="Voltar">Voltar</Link>
                                     <div className="pull-right">
-                                        {this.state.expenseName > 3 && this.state.expenseValue > 0 && this.state.expenseExpirationDate != null && this.state.expenseDescription != null && this.state.usersList.length > 0 && selectedCategory != null ?
+                                        {
+                                            /*
+                                            this.state.expenseName > 3 && 
+                                            this.state.expenseValue > 0 && 
+                                            this.state.expenseExpirationDate != null && 
+                                            this.state.expenseDescription != null &&
+                                            this.state.selectedGroupOption.users.length > 0 &&
+                                            this.state.selectedCategory != null  ?
+                                            */
+                                           true ?
                                             <Button onClick={this.saveExpense}
                                                     className="btn btn-success">Salvar</Button> :
                                             <Button onClick={this.saveExpense} disabled

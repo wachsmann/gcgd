@@ -1,6 +1,7 @@
 import { authHeader,urlAppender } from '../_helpers';
 
 export const userService = {
+    getGroups,
     login,
     logout,
     register,
@@ -90,7 +91,15 @@ function update(user) {
 
     return fetch(urlAppender('/user/' + user.id), requestOptions).then(handleResponse);
 }
+function getGroups(userId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+    };
 
+
+    return fetch(urlAppender('/user/groups/' + userId), requestOptions).then(handleResponse);
+}
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
     const requestOptions = {

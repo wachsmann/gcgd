@@ -7,6 +7,7 @@ Class UserModel extends Model
     protected $table = 'user';
 
     protected $fillable = ['id','email','name','password','phone',];
+    public $timestamps = true;
     public function groups()
     {
         return $this
@@ -19,5 +20,5 @@ Class UserModel extends Model
         'email' => 'required|email|unique:user,email',
         'password' => 'required',
     ];
-    
+ 
 }

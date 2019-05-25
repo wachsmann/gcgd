@@ -9,6 +9,7 @@ export const userActions = {
     register,
     update,
     getAll,
+    getGroups,
     delete: _delete
 };
 
@@ -76,6 +77,36 @@ function register(user) {
 
     function failure(error) {
         return {type: userConstants.REGISTER_FAILURE, error}
+    }
+}
+
+function getGroups(userId) {
+    return dispatch => {
+        dispatch(request(userId));
+
+        userService.getGroups(userId)
+            .then(
+                groups => {
+                    dispatch(success(groups));
+                    dispatch(alertActions.success('Sucesso!'));
+                },
+                error => {
+                    dispatch(failure(error));
+                    dispatch(alertActions.error("Erro na requisição, verifique os campos!"));
+                }
+            );
+    };
+
+    function request(userId) {
+        return {type: userConstants.GROUPS_REQUEST, userId}
+    }
+
+    function success(groups) {
+        return {type: userConstants.GROUPS_SUCCESS, groups}
+    }
+
+    function failure(error) {
+        return {type: userConstants.GROUPS_FAILURE, error}
     }
 }
 

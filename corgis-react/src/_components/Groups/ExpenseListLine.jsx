@@ -17,11 +17,7 @@ export default class ExpenseListLine extends React.Component {
 			<tr>
 				<td>{this.props.name}</td>
 				<td>{this.props.value}</td>
-				<td>
-					<Button className="btn btn-danger " href="" id={this.props.id} onClick={event => this.handleDelete(event, this.props.id)} data-toggle="tooltip" title="Delete">
-						<i className="glyphicon glyphicon-remove"></i>
-					</Button>
-				</td>
+				
 			</tr>
 		);
 	}

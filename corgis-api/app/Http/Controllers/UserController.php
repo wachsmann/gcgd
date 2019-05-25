@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\UserModel;
+use App\Model\CollectiveModel;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -83,6 +85,16 @@ class UserController extends Controller
         $user->delete();
 
          return response()->json('Usuário removido com sucesso');
+     }
+     public function getGroups($id){
+        
+         $user =  
+            UserModel::where("id",$id)->with("groups")->first();
+         $groups = $user->groups;
+         foreach ($groups as $key => $value) {
+            $groups[$key] = CollectiveModel::where("id",$value->id)->with("users")->first();
+         }
+         return response()->json($groups);
      }
 
 
