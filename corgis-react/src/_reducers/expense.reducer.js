@@ -2,6 +2,17 @@ import {expenseConstants} from '../_constants';
 
 export function expenses(state = {}, action) {
     switch (action.type) {
+        case expenseConstants.REGISTER_SUCCESS:
+            return {};
+        case expenseConstants.REGISTER_REQUEST:
+            return {
+                loading: true
+            };
+        case expenseConstants.REGISTER_FAILURE:
+            return {
+                error: action.error
+            };
+
         case expenseConstants.GETALL_REQUEST:
             return {
                 loading: true

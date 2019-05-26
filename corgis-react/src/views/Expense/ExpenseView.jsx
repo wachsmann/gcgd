@@ -8,9 +8,9 @@ import './expense.css'
 class ExpenseView extends React.Component {
    constructor(props) {
     super(props);
-
+    var currentUser = JSON.parse(localStorage.getItem('user'))
     // reset login status
-    this.props.dispatch(expenseActions.getAll());
+    this.props.dispatch(expenseActions.getAll({user:currentUser.user.id}));
   }  
   render() {
     const { list } = this.props;
@@ -67,26 +67,27 @@ class ExpenseView extends React.Component {
                                         <table className="table table-bordered">
                                           <thead>
                                             <tr bgcolor="#ddd">
-                                              <th style={{width:200}}>Usuário</th>
-                                              <th>Nome</th>
+                                              
+                                              <th>Grupo</th>
+                                              <th>Valor</th>
                                               <th>Status</th>
                                               <th style={{width:50}}>Parcelas</th>
                                               <th>Data de vencimento</th>
-                                              <th>Grupo</th>
-                                              <th>Valor</th>
+                                             
+                                              
                                               <th>Ações</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             {list && list.map((result, i) =>
                                               <tr key={result.id}>
-                                              <td>{result.admin.name}</td>
-                                              <td>{result.name}</td>
-                                              <td>{result.status}</td>
-                                              <td>-</td>
-                                              <td>{result.validity.slice(0,10)}</td>
-                                              <td>{result.group.name}</td>
+                                              <td>{result.collective_name}</td>
                                               <td>{result.total}</td>
+                                              <td>-</td>
+                                              <td>{result.parcels}</td>
+                                              <td>{result.validity.slice(0,10)}</td>
+                                              
+                                              
 
                                               <td>
                                               <a data-toggle="tooltip" title="Visualizar"><i className="btn btn-primary glyphicon glyphicon-pencil"></i></a>

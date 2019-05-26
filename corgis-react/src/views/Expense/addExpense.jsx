@@ -12,10 +12,11 @@ import ExpenseListLine from "../../_components/Groups/ExpenseListLine";
 class addExpense extends React.Component {
     constructor(props) {
         super(props);
+        var currentUser = JSON.parse(localStorage.getItem('user'))
 
         this.state = {
             groupList: [],
-            selectedOption: null,
+            userId:currentUser.user.id,
             selectedQtts: null,
             selectedGroupOption:null,
             usersGroups:[],
@@ -27,7 +28,7 @@ class addExpense extends React.Component {
             expenseExpirationDate: "",
         };
 
-        var currentUser = JSON.parse(localStorage.getItem('user'))
+       
         //Get first users
         this.props.dispatch(userActions.getAll());
         
@@ -60,7 +61,20 @@ class addExpense extends React.Component {
     }
     saveExpense = () => {
         console.log(this.state)
-       
+        this.props.dispatch(
+            expenseActions.register(
+                {
+                description:this.state.expenseDescription,
+                validity:this.state.expenseExpirationDate,
+                name:this.state.expenseName,
+                total:this.state.expenseValue,
+                expense_type:this.state.selectedCategory,
+                collective: this.state.selectedGroupOption,
+                parcels: this.state.selectedQtts,
+                user:this.state.userId
+                }
+            )
+        ); 
         
 
     }
@@ -218,7 +232,7 @@ class addExpense extends React.Component {
                                                             id={user.id}
                                                             //email={"jarbas@gmail.com"}
                                                             key={user.value}
-                                                        />;
+                                                        />
                                                     })
                                                 }
                                                 </tbody>

@@ -1,26 +1,26 @@
 import { expenseConstants } from '../_constants';
 import { expenseService } from '../_services';
-//import { alertActions } from './';
-//import { history } from '../_helpers';
+import { alertActions } from './';
+import { history } from '../_helpers';
 
 export const expenseActions = {
 
-    //register,
+    register,
     getAll,
-    getAllCategory,
+    getAllCategory
 };
-/*
+
 
 function register(obj) {
     return dispatch => {
         dispatch(request(obj));
 
-        groupService.register(obj)
+        expenseService.register(obj)
             .then(
                 obj => { 
                     dispatch(success());
-                    history.push('/grupo');
-                    //dispatch(alertActions.success('Sucesso!'));
+                    history.push('/despesa');
+                    dispatch(alertActions.success('Sucesso!'));
                 },
                 error => {
                     dispatch(failure(error));
@@ -29,16 +29,16 @@ function register(obj) {
             );
     };
 
-    function request(obj) { return { type: userConstants.REGISTER_REQUEST, obj } }
-    function success(obj) { return { type: userConstants.REGISTER_SUCCESS, obj } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+    function request(obj) { return { type: expenseConstants.REGISTER_REQUEST, obj } }
+    function success() { return { type: expenseConstants.REGISTER_SUCCESS } }
+    function failure(error) { return { type: expenseConstants.REGISTER_FAILURE, error } }
 }
-*/
-function getAll() {
+
+function getAll($filters) {
     return dispatch => {
         dispatch(request());
         
-        expenseService.getAll()
+        expenseService.getAll($filters)
             .then(
                 list => dispatch(success(list)),
                 error => dispatch(failure(error))

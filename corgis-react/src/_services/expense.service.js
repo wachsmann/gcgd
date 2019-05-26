@@ -4,12 +4,23 @@ export const expenseService = {
    
     getAll,
     getAllCategory,
+    register,
 };
-
-function getAll() {
+function register(expense) {
     const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(expense)
+    };
+
+    return fetch(urlAppender('/private/expense/create'), requestOptions).then(handleResponse);
+}
+function getAll($filters) {
+    console.log("Filter",$filters);
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body:JSON.stringify($filters)
     };
 
     return fetch(urlAppender('/private/expense'), requestOptions).then(handleResponse);

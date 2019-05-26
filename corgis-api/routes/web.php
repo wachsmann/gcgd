@@ -31,7 +31,8 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     /**
      *  EXPENSE
      */
-    $router->post('/expense/create', ['uses' =>'ExpenseController@create']);
+    $router->post('/private/expense', ['uses' =>'ExpenseController@getAll']);
+    $router->post('/private/expense/create', ['uses' =>'ExpenseController@create']);
 
     /**
      *  PARCEL
