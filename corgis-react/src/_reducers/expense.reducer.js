@@ -13,6 +13,20 @@ export function expenses(state = {}, action) {
                 error: action.error
             };
 
+
+        case expenseConstants.PAY_SUCCESS:
+            return {};
+        case expenseConstants.PAY_REQUEST:
+            return {
+                loading: true
+            };
+        case expenseConstants.PAY_FAILURE:
+            return {
+                error: action.error
+            };
+
+
+            
         case expenseConstants.GETALL_REQUEST:
             return {
                 loading: true

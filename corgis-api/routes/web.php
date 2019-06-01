@@ -33,7 +33,7 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
      */
     $router->post('/private/expense', ['uses' =>'ExpenseController@getAll']);
     $router->post('/private/expense/create', ['uses' =>'ExpenseController@create']);
-
+    $router->put('/private/expense/{id}/pay',['uses'=>'ExpenseController@pay']);
     /**
      *  PARCEL
      */

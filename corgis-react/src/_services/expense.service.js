@@ -5,6 +5,7 @@ export const expenseService = {
     getAll,
     getAllCategory,
     register,
+    pay
 };
 function register(expense) {
     const requestOptions = {
@@ -14,6 +15,15 @@ function register(expense) {
     };
 
     return fetch(urlAppender('/private/expense/create'), requestOptions).then(handleResponse);
+}
+function pay(id){
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        
+    };
+
+    return fetch(urlAppender('/private/expense/'+id+'/pay'), requestOptions).then(handleResponse);
 }
 function getAll($filters) {
     console.log("Filter",$filters);
